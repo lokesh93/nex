@@ -1,0 +1,4 @@
+$('#loadmodal').hide();
+$('.all-bid-container').empty();
+$('.all-bid-container').append("<%=j render partial: 'users/all_bid_info' %>")
+$('#all_bid_info').modal('show')

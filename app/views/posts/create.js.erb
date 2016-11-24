@@ -1,0 +1,44 @@
+console.log('test');
+<% if @error == "" %>
+
+  $('.slide-2').hide();
+  $('.slide-1').hide();
+  $('.submit').hide();
+  $('.slide-3').append("<%=j render partial: 'attachments/multiple_post', locals: { post: @post } %>")
+  $('.slide-3').show();
+<%else%>
+  $('.slide-2').hide();
+  $('.slide-1').show();
+  $('.submit').hide();
+  $('.submit').addClass('slide-2')
+  
+<%end%>
+$('.new_attachment').each(function() {
+  $(this).fileupload({
+    dataType: 'script',
+    add: function(e, data) {
+      $('#loadmodal').show();
+      var file, types;
+      types = /(\.|\/)(gif|jpe?g|png|mov|mpeg|mpeg4|avi)$/i;
+      file = data.files[0];
+      if (types.test(file.type) || types.test(file.name)) {
+        data.formData = $(this).serializeArray();
+        $(this).find('.file-upload-container').children('span').text(file.name);
+        $(this).find('.file-upload-container').addClass('in-progress');
+        return setTimeout(data.submit(), 3000);
+      } else {
+        return alert(file.name + " is not a gif, jpg or png image file");
+      }
+    },
+    progress: function(e, data) {
+      var progress;
+      if (data.context) {
+        progress = parseInt(data.loaded / data.total * 100, 10);
+        return $('.progress-bar').css('width', progress + '%');
+      }
+    },
+    done: function(e, data) {
+      return $('.actions input[type="submit"]').off('click');
+    }
+  });
+});

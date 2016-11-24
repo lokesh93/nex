@@ -1,0 +1,45 @@
+
+$('#loadmodal').hide();
+<% if @attachment.owner_type == "Gallery" %>
+  $('.gallery-container-<%=@attachment.owner.id%>').find('form').remove();
+  $('#loadmodal').hide();
+  console.log('updated');
+  <% if @attachment.owner.name == 'Profile_Pictures' || @attachment.owner.name == "Cover_Pictures" %>
+    $('.gallery-container-<%=@attachment.owner.id%>').append("<%=j render partial: 'attachments/form', locals: { attachment: @attachment, gallery: @attachment.owner } %>")
+  <%elsif @attachment.owner.name == "Media" %>
+    $('.media-gallery').empty()
+    $('.media-gallery').append("<%=j render partial: 'attachments/multiple_form', locals: { attachment: @attachment, gallery: @attachment.owner } %>")
+  <%end%> 
+<%elsif @attachment.owner_type == "Post" %>
+  $('.slide-3').empty();
+  $('.slide-3').append("<%=j render partial: 'attachments/multiple_post', locals: { post: @attachment.owner } %>")
+<%end%>
+$('.new_attachment').each(function() {
+  $(this).fileupload({
+    dataType: 'script',
+    add: function(e, data) {
+      $('#loadmodal').show();
+      var file, types;
+      types = /(\.|\/)(gif|jpe?g|png|mov|mpeg|mpeg4|avi)$/i;
+      file = data.files[0];
+      if (types.test(file.type) || types.test(file.name)) {
+        data.formData = $(this).serializeArray();
+        $(this).find('.file-upload-container').children('span').text(file.name);
+        $(this).find('.file-upload-container').addClass('in-progress');
+        return setTimeout(data.submit(), 3000);
+      } else {
+        return alert(file.name + " is not a gif, jpg or png image file");
+      }
+    },
+    progress: function(e, data) {
+      var progress;
+      if (data.context) {
+        progress = parseInt(data.loaded / data.total * 100, 10);
+        return $('.progress-bar').css('width', progress + '%');
+      }
+    },
+    done: function(e, data) {
+      return $('.actions input[type="submit"]').off('click');
+    }
+  });
+});

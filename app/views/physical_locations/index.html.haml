@@ -1,0 +1,37 @@
+%h1 Listing physical_locations
+
+%table
+  %tr
+    %th Address
+    %th Postal code
+    %th Business phone
+    %th Other phone
+    %th Fax
+    %th Business email
+    %th Business website
+    %th Sale location
+    %th City
+    %th Vendor
+    %th
+    %th
+    %th
+
+  - @physical_locations.each do |physical_location|
+    %tr
+      %td= physical_location.address
+      %td= physical_location.postal_code
+      %td= physical_location.business_phone
+      %td= physical_location.other_phone
+      %td= physical_location.fax
+      %td= physical_location.business_email
+      %td= physical_location.business_website
+      %td= physical_location.sale_location
+      %td= physical_location.city_id
+      %td= physical_location.vendor_id
+      %td= link_to 'Show', physical_location
+      %td= link_to 'Edit', edit_physical_location_path(physical_location)
+      %td= link_to 'Destroy', physical_location, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Physical location', new_physical_location_path

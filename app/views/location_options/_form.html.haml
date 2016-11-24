@@ -1,0 +1,13 @@
+= form_for @location_option do |f|
+  - if @location_option.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@location_option.errors.count, "error")} prohibited this location_option from being saved:"
+      %ul
+        - @location_option.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .actions
+    = f.submit 'Save'

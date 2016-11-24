@@ -1,0 +1,51 @@
+= form_for(@physical_location) do |f|
+  - if @physical_location.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@physical_location.errors.count, "error")
+        prohibited this physical_location from being saved:
+      %ul
+        - @physical_location.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :adress
+    %br/
+    = f.text_field :adress
+  .field
+    = f.label :postal_code
+    %br/
+    = f.text_field :postal_code
+  .field
+    - is_new_location = @physical_location.nil? || @physical_location.id.nil?
+    = select(:country, :id, Country.all.collect { |c| [c.name, c.id] }, {prompt: 'Country'}, |
+      :selected => is_new_location ? 0 : @physical_location.city.province.country_id) |
+    -#
+    = select(:province, :id, Province.all.collect { |p| [p.name, p.id] }, {prompt: 'Province'}, |
+      :selected => is_new_location ? 0 : @physical_location.city.province_id)  |
+    = f.select(:city_id, City.all.collect { |c| [c.name, c.id] }, prompt: "City")
+  .field
+    = f.label :business_phone
+    %br/
+    = f.text_field :business_phone
+  .field
+    = f.label :other_phone
+    %br/
+    = f.text_field :other_phone
+  .field
+    = f.label :fax
+    %br/
+    = f.text_field :fax
+  .field
+    = f.label :business_email
+    %br/
+    = f.text_field :business_email
+  .field
+    = f.label :business_website
+    %br/
+    = f.text_field :business_website
+  .field
+    = f.label :sale_location
+    %br/
+    = f.check_box :sale_location
+  .actions
+    = f.submit

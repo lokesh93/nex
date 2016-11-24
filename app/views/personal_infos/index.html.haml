@@ -1,0 +1,33 @@
+%h1 Listing personal_infos
+
+%table
+  %tr
+    %th Legal first name
+    %th Legal last name
+    %th Preferred name
+    %th Email
+    %th Title
+    %th Primary phone
+    %th Secondary phone
+    %th Vendor
+    %th
+    %th
+    %th
+
+  - @personal_infos.each do |personal_info|
+    %tr
+      %td= personal_info.legal_first_name
+      %td= personal_info.legal_last_name
+      %td= personal_info.preferred_name
+      %td= personal_info.email
+      %td= personal_info.title
+      %td= personal_info.primary_phone
+      %td= personal_info.secondary_phone
+      %td= personal_info.vendor_id
+      %td= link_to 'Show', personal_info
+      %td= link_to 'Edit', edit_personal_info_path(personal_info)
+      %td= link_to 'Destroy', personal_info, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Personal info', new_personal_info_path

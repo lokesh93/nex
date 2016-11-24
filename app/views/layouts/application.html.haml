@@ -1,0 +1,106 @@
+!!!
+%html{:lang => "en", "xml:lang" => "en", :xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %title SpoiltRoyal
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "content-type"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{:content => "width=device-width, initial-scale=1.0, user-scalable=false", :name => "viewport"}/
+    %link{:href => "img/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon"}/
+    %link{:href => "img/favicon.ico", :rel => "icon", :type => "image/x-icon"}/
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+    = javascript_include_tag Sync.adapter_javascript_url
+    = csrf_meta_tags
+    :javascript
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-59002638-1', 'auto');
+      ga('send', 'pageview');
+  %body
+    #loadmodal.load-modal{:style => "display:none"}
+      .loading
+    .notice-cont
+      = render 'layouts/notice'
+    - if current_user
+      %nav#logged-in-nav.navbar.navbar-default
+        .container-fluid
+          / Brand and toggle get grouped for better mobile display
+          .navbar-header.col-sm-2
+            %button.navbar-toggle.collapsed{"data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+              %span.sr-only Toggle navigation
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+            %a.col-sm-12.navbar-brand{:href => "/", style: "font-family:Lobster,'cursive';"}
+              = image_tag("/img/logov1.png")
+          / Collect the nav links, forms, and other content for toggling
+          .navbar-left.col-sm-5
+            %ul.nav.navbar-nav.center-navbar.col-sm-12
+              - if current_user.account_type != "Vendor"
+                %li.col-sm-4.hidden-xs
+                  = link_to vendors_path do
+                    %button.btn.new-post
+                      Browse Vendors
+                
+              %li.col-sm-4
+                - if current_user.account_type == "Vendor"
+                  = link_to posts_path, class: "post-btn" do
+                    %button.btn.new-post
+                      Browse Posts
+                - else
+                  %a.post-btn{href: "#"}
+                    %button.btn.new-post.post-new
+                      Post Your Needs
+          .navbar-right.col-sm-5
+            %ul.nav.navbar-nav.center-navbar.col-sm-12
+              %li.col-sm-3
+                = link_to logout_path, class: "post-btn" do
+                  %button.btn.new-post
+                    Logout
+                - @activities = PublicActivity::Activity.where(recipient_id: current_user.id).order(created_at: :desc)
+                - @read = true;
+    
+                -@activities.each do |activity|
+                  - if activity.read == false
+                    -@read = false;
+                - if !@read
+                  = link_to 'read', read_user_path(current_user), remote:true, class: "hidden read-notifications"
+              %li.notification-li{class: "read-#{@read}"}
+                %a.dtoggle#menu1.non-active-not{class: "read-#{@read}"}
+                  %i.fa.fa-bell-o{class: "#{'new' if !@read}"}
+                  %i.fa.fa-bell{class: "#{'new' if !@read}"}
+
+
+                .menu1.hidden.dmenu{:role => "menu"}
+                  %i.fa.fa-caret-up
+                  
+                  .notifications
+                    .new
+                      = sync_new partial: 'notification', resource: PublicActivity::Activity.new
+
+                    - @activities.each_with_index do |activity,index|
+                      - @index = index
+    
+                      = sync partial: 'notification', resource: activity, total: @activities.length, index: index
+                    - if @activities.length < 1
+                      You Have No Notifications
+                  .col-xs-12.title.no-h-padding
+                    Notification
+            
+
+
+              %li
+                = link_to overview_user_path(current_user), class: "nav-user" do
+                  - if current_user.profile_pic == nil
+                    = image_tag ("//placehold.it/60x60"), class: "img-circle"
+                  - else
+                    - @image = current_user.profile_pic.image
+                    = image_tag @image.url(:small), class: "img-circle"
+                  = current_user.full_name
+
+    = yield
+    - if current_user
+      - if current_user.account_type != "Vendor"
+        = render 'layouts/new_post'

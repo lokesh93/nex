@@ -1,0 +1,14 @@
+$('#edit-post').remove();
+$('body').append("<%=j render partial: 'layouts/edit_post', locals: { post: @post } %>")
+$('#edit_post').modal('show')
+ $('.datepicker').datepicker({
+  autoclose: true
+})
+ $('.edit.slide-2').hide();
+ $('.edit.slide-3').hide();
+ $('.edit.slide-1').show();
+$('.edit-submit').attr('target','.edit.slide-2')
+$('.edit-back-post').attr('target','nil')
+
+$('.active-submit').hide()
+$('.edit-submit').show();

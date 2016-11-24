@@ -1,0 +1,99 @@
+.custom.container.no-h-padding.custom-container-override
+	.column-names
+		.col-xs-2.names-row.padding-left-30
+			Post Due
+		.col-xs-5.names-row
+			Post Information
+		.col-xs-3.names-row
+			Status
+		.col-xs-2.names-row
+	.user-bids
+		- @user_posts.each do |post|
+			- bid = post.bids.first
+			.bid
+				.col-xs-2.due.bid-row.padding-left-30
+					- if Time.now.to_date > post.due_date.to_date	
+						%span.in-grey
+							= ((Time.now.to_date - post.due_date.to_date).to_i).to_s + " days ago"
+						%span.grey-date{:style => "white-space:normal;"}
+							= post.due_date.to_date.strftime("%B %d, %Y")
+					- elsif Time.now.to_date == post.due_date.to_date
+						%span.in-green	Today
+						%span.grey-date{:style => "white-space:normal;"}
+							= post.due_date.to_date.strftime("%B %d, %Y")
+					- else
+	
+						%span.in-green
+							= "In " + ((post.due_date.to_date - Time.now.to_date).to_i).to_s + " days"
+						%span.grey-date{:style => "white-space:normal;"}
+							= post.due_date.to_date.strftime("%B %d, %Y")
+				.col-xs-5.bid-row
+					.bid-img-container
+						- if post.user.profile_pic == nil
+							= image_tag ("//placehold.it/60x60"), class: "img-circle bid-img"
+						-else
+							- @image = post.user.profile_pic.image
+							= image_tag @image.url(:small), class: "img-circle bid-img"
+					.bid-info
+						.title
+							= post.user.first_name + " " + post.user.last_name + " " + "\u2022" + " " + "('" + post.title + "')"
+						- if bid	
+							.info
+								= bid.info
+				- if bid 
+					.col-xs-3.bid-row
+						.bid-info-2
+							.bid-status{class: "#{bid.status}"}
+								- if bid.status == "bid-pending"
+									= "Bidded \u2022 " + bid.status
+								- elsif bid.status == "accepted"
+									= "Bid Won"
+								- elsif bid.status == "Lost"
+									Bid Lost
+								- else
+									Bid Cancelled
+
+							.bid-amount
+								= number_to_currency(bid.value)
+					.col-xs-2.bid-row
+						.bid-links
+							= link_to "Contact Vendor", new_message_path(subject: post.title, :user_id => bid.user.id)
+							/ .bid-info-button.link{"target" => ".bid-info-#{bid.id}" }
+							/ 	Your bid
+							.all-bids-button.link{"target" => ".all-bids-#{bid.id}"}
+								All bid
+						
+			- if bid 					
+				.all-bids.bid-slide-down{class: "all-bids-#{bid.id}"}
+					.gradient
+					.col-xs-12.title
+						All Bids
+					.all-bids-table.col-xs-10.no-h-padding
+						.bid-vendors.bid-column
+							.vendor-title.column-title
+								Bidding Vendors
+							- @bids = post.bids
+							- @bids.each do |b|
+								- if b == bid
+									.vendor-name.column-value
+										You
+								- else
+									.vendor-name.column-value
+										= b.user.account.business_name
+						.bid-amounts.bid-column
+							.amount-title.column-title
+								Bid
+							- @bids = bid.post.bids
+							- @bids.each do |b|
+								.vendor-amount.column-value
+									= number_to_currency(b.value)
+
+
+					.buttons.col-xs-2.no-h-padding
+						= link_to "Accept Bid", accept_bid_path, class: "modify-btn "
+						= link_to "Cancel Bid", bid_path(bid.id), method: :delete, data: {confirm: " Are you sure you want to cancel your bid"}, class: "cancel-btn"
+						= link_to "Contact Vendor", new_message_path(subject: bid.post.title, user_id: bid.user.id), class: "modify-btn"
+	
+					
+
+

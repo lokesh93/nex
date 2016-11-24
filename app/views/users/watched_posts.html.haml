@@ -1,0 +1,72 @@
+= render 'dashboard_nav'
+.custom.container
+  .column-names
+    .col-xs-2.names-row.padding-left-30.no-h-padding
+      Watched Date
+    .col-xs-6.names-row
+      Post
+    .col-xs-2.names-row
+      Post Date
+    .col-xs-2.names-row.no-h-padding
+  .watched-posts
+    - @watchedPosts.each do |wp|
+      -@post = wp.post
+      .post
+        .col-xs-2.padding-left-30.watched-date
+          - if (Time.now.to_date - wp.created_at.to_date).to_i == 0
+            %span.in-grey
+              Today
+          - else
+            %span.in-grey
+              = ((Time.now.to_date - wp.created_at.to_date).to_i).to_s + " days ago"
+          %span.grey-date
+            = wp.created_at.to_date.strftime("%B %d, %Y")
+        .col-xs-6.no-h-padding.post-info
+          .img-container
+            - if @post.user.profile_pic == nil
+              = image_tag ("//placehold.it/60x60"), class: "img-circle bid-img"
+            -else
+              - @image = @post.user.profile_pic.image
+              = image_tag @image.url(:small), class: "img-circle bid-img"
+          .post-text
+            .title
+              = @post.user.first_name + " " + @post.user.last_name + " " + "\u2022" + " " + "('" + @post.title + "')"
+            .info
+              = @post.description
+        .col-xs-2.post-date
+          = @post.created_at.to_date.strftime("%B %d, %Y")
+        .col-xs-2.no-h-padding.links-container
+          .bid-links
+            = link_to "Contact client", new_message_path(subject: "inquiry", :user_id => @post.user_id)
+            %a{href: "#"}
+              Make Bid
+            .all-bids-button.link{"target" => ".all-bids-#{wp.id}"}
+              All bid
+            = link_to "Unwatch", watched_posts_path(wp.id), method: :delete, data: {confirm: " Are you sure you want to unwatch this post"}
+      .all-bids.bid-slide-down{class: "all-bids-#{wp.id}"}
+        .gradient
+        .col-xs-12.title
+          All Bids
+        .all-bids-table.col-xs-10.no-h-padding
+          .bid-vendors.bid-column
+            .vendor-title.column-title
+              Bidding Vendors
+            - @bids = @post.bids
+            - @bids.each do |b|
+              .vendor-name.column-value
+                = b.user.account.business_name
+          .bid-amounts.bid-column
+            .amount-title.column-title
+              Bid
+            - @bids = @post.bids
+            - @bids.each do |b|
+              .vendor-amount.column-value
+                = number_to_currency(b.value)
+
+
+        / .buttons.col-xs-2.no-h-padding
+        /   = link_to "Modify Bid", edit_bid_path, class: "modify-btn "
+        /   = link_to "Cancel Bid", bid_path(bid.id), method: :delete, data: {confirm: " Are you sure you want to cancel your bid"}, class: "cancel-btn"  
+
+
+

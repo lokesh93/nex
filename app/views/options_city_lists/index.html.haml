@@ -1,0 +1,23 @@
+%h1 Listing options_city_lists
+
+%table
+  %thead
+    %tr
+      %th Location option
+      %th City
+      %th
+      %th
+      %th
+
+  %tbody
+    - @options_city_lists.each do |options_city_list|
+      %tr
+        %td= options_city_list.location_option_id
+        %td= options_city_list.city_id
+        %td= link_to 'Show', options_city_list
+        %td= link_to 'Edit', edit_options_city_list_path(options_city_list)
+        %td= link_to 'Destroy', options_city_list, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Options city list', new_options_city_list_path

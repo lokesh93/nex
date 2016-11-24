@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Vendor:
+  = @service_location.vendor_id
+%p
+  %b City:
+  = @service_location.city_id
+
+= link_to 'Edit', edit_service_location_path(@service_location)
+\|
+= link_to 'Back', service_locations_path

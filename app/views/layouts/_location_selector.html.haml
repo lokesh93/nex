@@ -1,0 +1,13 @@
+-# 3 drop downs where you need to write ajax calls to the api_controller functions
+-# in order to reload the next drop down (country to province).
+-# The functions can be called with the format: "localhost:3000/fetch_provinces?country_id=1"
+-# In case you want to know, "location" is the form-builder passed in from the render
+-# and it contains the object that we are building the form with, pretty handy
+- is_new_location = location.object.nil? || location.object.city.nil?
+-# country selector
+= location.select(:city, options_for_select(Country.all.collect { |c| [c.name, c.id] }, :selected => is_new_location ? 1 : location.object.city.province.country_id), {prompt: 'Country', }, {class: 'country-select  select',"data-slide": slide})
+-# province selectorx
+= location.select(:city, options_for_select(Province.all.collect { |p| [p.name, p.id] }, :selected => is_new_location ? 1 : location.object.city.province_id), {prompt: 'Province'}, {class: 'province-select select ',"data-slide": slide})
+-# city selector: this is what is important, the only thing backend is accepting
+-# from this partial is the city_id, this means the other two is just for the sake of UI
+= location.select(:city_id, City.all.collect { |c| [c.name, c.id] }, {prompt: "City"}, class: "city-select select 7","data-slide": slide)

@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Location option:
+  = @options_city_list.location_option_id
+%p
+  %b City:
+  = @options_city_list.city_id
+
+= link_to 'Edit', edit_options_city_list_path(@options_city_list)
+\|
+= link_to 'Back', options_city_lists_path

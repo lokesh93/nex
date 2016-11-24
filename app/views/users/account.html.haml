@@ -1,0 +1,43 @@
+= render 'dashboard_nav'
+.col-xs-12.no-h-padding.bg-img-account
+  .opacity-cover
+.custom.container.custom-scroll{'data-mcs-theme' => 'minimal-dark'}
+  .account-cont
+    - if current_user.account_type == "Vendor"
+      .col-xs-2.col-xs-offset-1.text-center.active.vf-slide-1-toggle.vf-slide-toggle
+        General 
+      .col-xs-2.text-center.vf-slide-2-toggle.vf-slide-toggle
+        Buisness 
+      .col-xs-2.text-center.vf-slide-3-toggle.vf-slide-toggle
+        Images
+      .col-xs-2.text-center.vf-slide-4-toggle.vf-slide-toggle
+        Account
+      .col-xs-2.text-center.vf-slide-5-toggle.vf-slide-toggle
+        Notifications
+    - else
+      .col-xs-2.col-xs-offset-4.text-center.active.cf-slide-1-toggle.cf-slide-toggle
+        General 
+      .col-xs-2.text-center.cf-slide-2-toggle.cf-slide-toggle
+        Notifications
+
+    .logo-container.col-xs-12.no-h-padding.slide-1.slide-4
+      = image_tag("/img/logo-small.png")
+    .welcome-msg.col-xs-10.col-xs-offset-1.slide-1
+      - if params[:new_user]
+        .title
+          Welcome To Nathan's Exchange,
+          = current_user.first_name.camelize + " " + current_user.last_name.camelize
+        .intro
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in auctor arcu. Nullam at interdum lacus. Duis congue erat magna, at aliquet arcu iaculis ut.
+        .tell-us-more
+          First, Tell Us More About Your business:
+      - else
+        .tell-us-more
+          Edit Your Information:
+    - if current_user.account_type == "Vendor"
+      
+      .vendor-form{class: "new-true"}
+        = render "vendors/form"
+    - else
+      .consumer-form
+        = render "consumers/form"

@@ -1,0 +1,21 @@
+%h1 Listing vendor_subscriptions
+
+%table
+  %tr
+    %th Vendor
+    %th Subcategory
+    %th
+    %th
+    %th
+
+  - @vendor_subscriptions.each do |vendor_subscription|
+    %tr
+      %td= vendor_subscription.vendor_id
+      %td= vendor_subscription.subcategory_id
+      %td= link_to 'Show', vendor_subscription
+      %td= link_to 'Edit', edit_vendor_subscription_path(vendor_subscription)
+      %td= link_to 'Destroy', vendor_subscription, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Vendor subscription', new_vendor_subscription_path

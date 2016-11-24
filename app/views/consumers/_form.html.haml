@@ -1,0 +1,41 @@
+= form_for(@user) do |u|
+  .slide-1.slide.col-xs-8.col-xs-offset-2.no-h-padding
+    .col-xs-12.no-h-padding
+      = u.label :username, class: "col-xs-6 no-h-padding business_name"
+      = u.label :email, class: "col-xs-6 no-h-padding datepicker"
+    .col-xs-12.no-h-padding
+      = u.text_field :username, class: 'col-xs-6 business_name', "data-slide": "slide-3"
+      = u.text_field :email, class: 'col-xs-6 datepicker', "data-slide": "slide-4"
+    .field
+      %br/
+    .field
+      = u.label :old_password
+      %br/
+      = u.password_field :old_password, class: 'col-xs-12', "data-slide": "slide-4"
+    .field
+      = u.label :password
+      %br/
+      = u.password_field :password, class: 'col-xs-12', "data-slide": "slide-4"
+    .field
+      = u.label :password_confirmation
+      %br/
+      = u.password_field :password_confirmation, class: 'col-xs-12', "data-slide": "slide-4"
+    .field
+      = u.submit 'Save', class: ' col-xs-4 col-xs-offset-4 user-form-submit'
+.slide-2.slide.col-xs-8.col-xs-offset-2.no-h-padding
+  .half-way-through
+    Change Your Email Notification Settings
+  .h5.col-xs-12.no-h-padding
+    %span.col-xs-12.no-h-padding
+      Depending on these settings you will get email about your notifications
+  - @settings = current_user.email_notification_settings
+  - @settings.each do |setting|
+    = form_for setting, remote: true do |f|
+      .row.setting
+        .col-xs-5.title.no-h-padding
+          #{setting.settings_for}
+
+    
+        = f.select :timed_task_id, TimedTask.all.collect {|x| [x.measure_of_time, x.id]}, {}, class: "country-select col-xs-3"
+
+        = f.submit "Save", class: "btn btn-save col-xs-offset-1 col-xs-3"

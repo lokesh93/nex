@@ -1,0 +1,9 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h1
+      Welcome to SpoiltRoyal! #{@user.full_name}
+    %p
+      You have now signed up as a #{@user.account.class.to_s}.

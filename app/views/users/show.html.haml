@@ -1,0 +1,17 @@
+%p#notice= notice
+%p
+  %strong Username:
+  = @user.username
+%p
+  %strong Email:
+  = @user.email
+%p
+  %strong Crypted password:
+  = @user.crypted_password
+%p
+  %strong Account type:
+  = @user.account_type
+
+- if can? :read, User
+  = link_to 'Edit', edit_user_path(@user)
+= link_to 'Back', users_path

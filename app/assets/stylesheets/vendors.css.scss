@@ -1,0 +1,409 @@
+// Place all the styles related to the Vendors controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import 'variables';
+h3 {
+  color: blue;
+}
+.btn-save{
+  display: inline-block !important;
+  background-color: #db716a;
+  height: 50px !important;
+  width: auto;
+  margin-top: -1px;
+  width: 20%;
+  color: white;
+  line-height: 36px !important;;
+  font-size: 18px;
+  border: 0;
+  position: relative;
+}
+.reviews-container.overview-review{
+	background-color:white;
+	float:left;
+
+	.reviews{
+		width: 100%;
+		.review{
+
+			img{
+				margin-right: 20px;
+				float: left;
+			}
+			.info{
+				font-size: 15px;
+				float: left;
+				width: calc(100% - 80px );
+				.name{
+					font-weight: bold;
+					margin-bottom: 3px;
+					span{
+						float: left;
+					}
+					.raiting-star{
+						float: left;
+						margin-left: 5px;
+						img{
+							height: 15px;
+							margin-right: 0px;
+						}
+					}
+				}
+				.text{
+					margin-bottom: 3px;
+				}
+				.date{
+					font-size: 12px;
+				}
+
+			}
+		}
+	}
+}
+.row {
+  padding: 1em;
+}
+
+.vendor-form{
+	background:white;
+
+	.logo{
+		height: 15vh;
+		display: block;
+		margin:auto;
+		position: relative;
+		margin-top:30px;
+	}
+	.description{
+		text-align: center;
+		margin-bottom: 10px;
+	}
+
+	.instruction{
+		text-align: left;
+		margin-bottom: 20px;
+		margin-top: 20px;
+	}
+	.row-custom{
+		margin-bottom: 10px;
+	}
+	form{
+		.hidden-slide{
+			display: none;
+		}
+		.checkbox{
+			text-align:left;
+		}
+		.cbox{
+			height: auto;
+		}
+		.skip{
+			position: relative;
+			left:50%;
+			margin-left: -50px;
+			width: 100px;
+			border:none;
+			background:transparent;
+			color:#DB716A;
+		}
+		.established-label{
+			padding-left: 5px;
+		}
+		.next-slide{
+			margin-top: 50px;
+			height: 40px;
+			line-height: 40px;
+			background: #DB716A;
+			color:white;
+			text-align: center;
+		}
+		.embedded-link-container{
+			.next{
+				background-color:#DB716A;
+				color: white;
+			}
+		}
+		input{
+			height: 35px;
+			border: 1px solid #DB716A;
+			border-radius:0px;
+		}
+		textarea{
+			border: 1px solid #DB716A;
+			border-radius:0px;
+			height: 60px;
+			overflow-y:auto;
+		}
+	}
+}
+.text-center{
+	text-align: center;
+}
+.custom.container{
+	.vendor-show{
+
+		background-color: white;
+		.vendor-content{
+			background-color: white;
+			padding: 50px;
+			
+			.industries-content{
+				padding-top: 20px;
+				padding-bottom: 30px;
+				.industries{
+					.service{
+						font-size: 15px;
+						font-weight: bold;
+						padding-bottom: 8px;
+					}
+				}
+			}
+			.tags-container{
+				padding-bottom: 30px;
+				border-bottom: 2px solid #e6e6e6;
+				.title{
+					padding-right: 10px;
+					width: 100px;
+					display: block;
+					float: left;
+					line-height: 37px;
+				}
+				.tags{
+					float: left;
+					width: calc( 100% - 100px);
+					.tag{
+						float: left;
+	          background-color: #fcedd6;
+	          padding: 10px;
+	          margin-left: 5px;
+					}
+				}
+
+			}
+			.reviews-container{
+				.reviews{
+					.review{
+						margin-top: 20px;
+						img{
+							margin-right: 20px;
+							float: left;
+						}
+						.info{
+							font-size: 15px;
+							float: left;
+							width: calc(100% - 80px );
+							.name{
+								font-weight: bold;
+								margin-bottom: 3px;
+								span{
+									float: left;
+								}
+								.raiting-star{
+									float: left;
+									margin-left: 5px;
+									img{
+										height: 15px;
+										margin-right: 0px;
+									}
+								}
+							}
+							.text{
+								margin-bottom: 3px;
+							}
+							.date{
+								font-size: 12px;
+							}
+
+						}
+					}
+				}
+				.write-review{
+					float: right;
+					color: $blue;
+
+				}
+				.write-review:hover{
+					cursor: pointer;
+					text-decoration: underline;
+				}
+			}
+			.description-container{
+				color: #707686;
+				padding-bottom: 30px;
+				border-bottom: 2px solid #e6e6e6;
+				.title{
+
+				}
+				$d-line-height: 1.4;
+				$d-font: 15px;
+				$d-lines: 3;
+				.description{
+					display: block; /* Fallback for non-webkit */
+				  display: -webkit-box;
+				  max-width: 100%;
+				  margin: 0 auto;
+				  font-size: $d-font;
+				  line-height: $d-line-height;				  
+				  -webkit-box-orient: vertical;				  
+  				text-overflow: ellipsis;
+				}
+				.read{
+					padding-top: 10px;
+					color: $blue;
+					font-weight: bold;
+					display: block;
+				}
+				.read:hover{
+					cursor: pointer;
+					text-decoration: underline;
+
+				}
+				.read-less-des{
+					display: none;
+				}
+				.description.less{
+					height: $d-font*$d-line-height*$d-lines; /* Fallback for non-webkit */
+					overflow: hidden;
+					-webkit-line-clamp: $d-lines;
+				}
+			}
+		}
+		.vendor-cover-container{
+			height: 385px;
+			overflow: hidden;
+			img{
+				width: 1000px;
+
+			}
+			.vendor-cover-uperlayer{
+				position: absolute;
+				z-index: 2;
+				height: 385px;
+				width: 970px;
+
+				.vendor-cover{
+					height: 140px;
+					margin-top: 245px;
+					background-color: white;
+					opacity: 0.85;
+				}
+				.cover-content{
+					height: 140px;
+					margin-top: -140px;
+					width: 100%;
+					.work-and-buttons{
+						width: 56%;
+						float: left;
+						position: relative;
+						padding-right: 50px;
+						.buttons{
+							.contact-us{
+								margin-top: 15px;
+								height: 30px;
+								text-align: center;
+								background-color: $blue;
+								color:white;
+								font-size: 14px;
+								line-height: 30px;
+								font-weight: bold;
+								width: 150px;
+								float: right;
+							}
+						}
+						.work-examples{
+							height: 140px;
+							overflow: hidden;
+							text-align: center;
+							margin-top: -70px;
+							img{
+								margin-top: 10px;
+								max-height: 120px;
+								max-width: 120px;
+								display: inline-block;
+							}
+						}
+					}
+					.info{
+						position: relative;
+						width: 44%;	
+						overflow: auto;
+						float: left;
+						padding: 20px 0px 20px 50px;
+						div{
+							font-weight: bold;
+							margin-bottom: 10px;
+						}
+						.name{
+							color: #393939;
+							font-size: 20px;
+						}
+						.location{
+							font-size: 16px;
+							color: $blue;
+						}
+						.raitings{
+							.stars-show{
+								img{
+									height: 30px;
+									width: 30px;
+								}
+								
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+.vendor-title{
+	color: #5e5e5e;
+	font-weight: bold;
+	font-size: 12px ;
+}
+.review-modal{
+	padding: 30px;
+	.title{
+		margin-top: 0px;
+		color: #DB716A;
+		font-weight: bold;
+		margin-bottom: 3px;
+	}
+	.introduction{
+		padding-bottom: 10px;
+	}
+	.stars-raiting{
+		margin-top: 5px;
+		img{
+			height: 30px;
+		}
+	}
+	.subtitle{
+		color: #5e5e5e;
+		font-weight: bold;
+		font-size: 12px; 
+		margin-top: 10px;
+	}
+	textarea{
+		width: 100%;
+		margin-top: 5px;
+		margin-bottom: 5px;
+		border: 1px solid #ffc285;
+		height: 200px;
+	}
+	.stars{
+		margin-bottom: 10px;
+	}
+	.submit{
+		background-color: #DB716A;
+		color: white;
+		width: 100%;
+		height: 50px;
+		text-align: center;
+		border:0;
+		font-size: 15px;
+		margin-bottom: 10px;
+
+	}
+}

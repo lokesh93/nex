@@ -1,0 +1,16 @@
+= form_for @options_city_list do |f|
+  - if @options_city_list.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@options_city_list.errors.count, "error")} prohibited this options_city_list from being saved:"
+      %ul
+        - @options_city_list.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :location_option_id
+    = f.number_field :location_option_id
+  .field
+    = f.label :city_id
+    = f.number_field :city_id
+  .actions
+    = f.submit 'Save'

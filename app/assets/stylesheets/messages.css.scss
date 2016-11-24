@@ -1,0 +1,64 @@
+// Place all the styles related to the messages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'variables';
+.custom-message.container{
+  width: 1000px;
+}
+.convo-container{
+	height: 84vh;
+  border: 1px solid #E9E9E9;
+	width: 100%;
+	background-color: white;
+	.message-list{
+		width: 100%;
+		background-color: white;
+		height: 74vh;
+    overflow-y: scroll;
+    .message{
+      width: 100%;
+      padding: 15px;
+      overflow: auto;
+    }
+    .my.message{
+      .img-container{
+        float: right;
+        text-align: center;
+      }
+      .text{
+        float:left;
+        width: calc(100% - 60px);
+        text-align: right;
+        padding-left: 15px;
+        padding-top: 15px;
+      }
+    }
+    .other.message{
+      .img-container{
+        float: left;
+        text-align: center;
+      }
+      .text{
+        float:right;
+        width: calc(100% - 60px);
+        text-align: left;
+        padding-left: 15px;
+        padding-top: 15px;
+      }
+    }
+	}
+	.info{
+		textarea{
+			width: 90%;	
+			height: 10vh;
+			float: left;
+		}
+		input{
+			width: 10%;
+			float: right;
+			height: 10vh;
+		}
+
+	}
+
+}

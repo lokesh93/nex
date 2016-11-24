@@ -1,0 +1,43 @@
+.modal.fade{:id => "new-review", "aria-hidden" => "true", "aria-labelledby" => "new-review", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-body.support-body.review-modal
+        -if @review == nil
+          - @review = Review.new
+
+        = form_for @review do |f|
+          - if @review.errors.any?
+            #error_explanation
+              %h2= "#{pluralize(@review.errors.count, "error")} prohibited this review from being saved:"
+              %ul
+                - @review.errors.full_messages.each do |msg|
+                  %li= msg
+          .h3.title
+            Write A Review
+          .introduction
+            Give Feedback, and rate this vendor. Tell the world about your experience.
+          / .h5.subtitle
+          /   RATE OUT OF 5
+          / .stars.form
+          .subtitle
+            RATE OUT OF 5 STARS
+          .stars-raiting.form
+          - if @review != nil
+            :javascript
+              $('.stars-raiting.form').raty({ readOnly: false, score: "#{@review.raiting}"});
+          - else
+            :javascript
+              $('.stars-raiting.form').raty({ readOnly: false, score: "#{@vendor.total_raiting}"});
+          = f.hidden_field :raiting, value: 0, class: "raiting"
+          = f.hidden_field :user_id, value: current_user.id
+          = f.hidden_field :vendor_id, value: @vendor.id
+          .subtitle
+            WRITE YOUR FEEDBACK
+
+          = f.text_area :feedback
+          / = f.hidden_field :raiting, value: 0, class: "raiting"
+          = f.hidden_field :user_id, value: current_user.id
+          = f.hidden_field :vendor_id, value: @vendor.id
+
+          .actions
+            = f.submit 'Submit', class: "submit"

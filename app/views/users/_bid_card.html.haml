@@ -1,0 +1,93 @@
+.bid
+	.col-xs-2.due.bid-row.padding-left-30
+		- if Time.now.to_date > bid.post.due_date.to_date	
+			%span.in-grey
+				= ((Time.now.to_date - bid.post.due_date.to_date).to_i).to_s + " days ago"
+			%span.grey-date
+				= bid.post.due_date.to_date.strftime("%B %d, %Y")
+		- elsif Time.now.to_date == bid.post.due_date.to_date
+			%span.in-green	Today
+			%span.grey-date
+				= bid.post.due_date.to_date.strftime("%B %d, %Y")
+		- else
+
+			%span.in-green
+				= "In " + ((bid.post.due_date.to_date - Time.now.to_date).to_i).to_s + " days"
+			%span.grey-date
+				= bid.post.due_date.to_date.strftime("%B %d, %Y")
+	.col-xs-5.bid-row
+		.bid-img-container
+			- if bid.post.user.profile_pic == nil
+				= image_tag ("//placehold.it/60x60"), class: "img-circle bid-img"
+			-else
+				- @image = bid.post.user.profile_pic.image
+				= image_tag @image.url(:small), class: "img-circle bid-img"
+		.bid-info
+			.title
+				= bid.post.user.first_name + " " + bid.post.user.last_name + " " + "\u2022" + " " + "('" + bid.post.title + "')"
+			.info
+				= bid.info
+	.col-xs-3.bid-row
+		.bid-info-2
+			.bid-status{class: "#{bid.status}"}
+				- if bid.status == "bid-pending"
+					= "Bidded \u2022 " + bid.status
+				- elsif bid.status == "accepted"
+					= "Bid Won"
+				- elsif bid.status == "Lost"
+					Bid Lost
+				- else
+					Bid Cancelled
+
+			.bid-amount
+				= number_to_currency(bid.value)
+	.col-xs-2.bid-row
+		.bid-links
+			-@user = bid.post.user
+			-@convo = Conversation.where(:subject => bid.post.title).first
+			-if @convo == nil
+				-@convo = Conversation.create(subject: bid.post.title)
+				-@convo.users << @user
+				-@convo.users << current_user
+				-@message = Message.new
+			-if !(@convo.messages.empty?)
+				-if @convo.messages.last.user != current_user
+					-@last = @convo.messages.last
+					-@last.read = true
+					-@last.save
+
+			= link_to "Contact client", conversation_path(@convo), class: "contact-client"
+			.bid-info-button.link{"target" => ".bid-info-#{bid.id}" }
+				Your bid
+			= link_to "All Bids", all_bids_post_path(bid.post), remote:true, class: "all-bids-button"
+			-# .all-bids-button.link{"target" => ".all-bids-#{bid.id}"}
+			-# 	All bid
+
+= render 'your_bid_info', bid: bid, hidden: true,gradient: true, backgroundWhite:false;
+
+
+
+.all-bids.bid-slide-down.hidden{class: "all-bids-#{bid.id}"}
+	.gradient
+	.col-xs-12.title
+		All Bids
+	.all-bids-table.col-xs-10.no-h-padding
+		.bid-vendors.bid-column
+			.amount-title.column-title
+				Bid
+			- @bids = bid.post.bids
+			- @bids.each do |b|
+				.vendor-amount.column-value
+					= number_to_currency(b.value)
+		.bid-amounts.bid-column
+			.vendor-title.column-title
+				Date
+			- @bids = bid.post.bids
+			- @bids.each do |b|
+				.vendor-name.column-value
+					= b.created_at.strftime("%m/%d/%Y") 
+
+	.buttons.col-xs-2.no-h-padding
+		%a.modify-btn.open-bid-now{href:"#"} Modify
+		= link_to "Cancel Bid", bid_path(bid.id), method: :delete, data: {confirm: " Are you sure you want to cancel your bid"}, class: "cancel-btn"
+

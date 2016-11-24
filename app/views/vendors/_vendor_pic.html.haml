@@ -1,0 +1,12 @@
+- @vendor = vendor
+- if @vendor.cover_pic != nil
+  .sub-heading Your Current Cover Picture
+  .images
+    - @image = @vendor.cover_pic.image
+    = image_tag @image.url(:vendor_cover), class: "cover-pic"
+
+-if @vendor.media.length > 0
+  .sub-heading Pictures You already Uploaded
+  .images
+    - @vendor.media.each do |asset|
+      = image_tag asset.image(:vendor_media)

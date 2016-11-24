@@ -1,0 +1,176 @@
+= render 'layouts/patternbg'
+= render 'layouts/includeScroll'
+#posts-show.col-sm-10.col-xs-12.col-sm-offset-1.no-h-padding
+  .col-md-3.hidden-xs.sidebar-sm.hidden-sm
+    %span.col-xs-12.no-h-padding.sidebar-title
+      POSTS
+    %span.col-xs-12.no-h-padding.sidebar-desc
+      Explore our needs
+    - if current_user.account.kind_of? Consumer
+      = link_to "Make A New Post", new_post_path, class: "col-xs-12 btn btn-info"  
+    = form_tag posts_path,class: "serach-form col-xs-12 no-h-padding", method: :get do 
+      = text_field_tag :query, params[:query], class: "search-input col-xs-12", placeholder: "Search"
+      = button_tag(type: "submit", class: "btn submit-btn col-xs-12") do
+        Search
+    %span.sidebar-subtitle
+      FILTERS
+    .filters.col-xs-12
+      .categories.col-xs-12.no-h-padding.minimized
+        %span
+          Categories 
+        - if @category == nil
+          .category.active.col-xs-12.no-h-padding{"data-index": "0"}
+            %span
+              All
+          -@categories.each_with_index do |cat,index|
+            = link_to posts_path(category_id: cat.id) do 
+              .category.col-xs-12.no-h-padding{"data-index": "#{index+1}"}
+                %span
+                  = cat.name
+        - else 
+          = link_to posts_path do 
+            .category.col-xs-12.no-h-padding{"data-index": "0"}
+              %span
+                All
+          - @categories.each_with_index do |cat, index|
+            - if cat == @category
+              .category.active.col-xs-12.no-h-padding{"data-index": "#{index+1}"}
+                %span{style:"float:left"}
+                  = cat.name
+                =link_to posts_path do 
+                  %span{style:"float:right"}
+                    x
+            -else
+              = link_to posts_path(category_id: cat.id) do 
+                .category.col-xs-12.no-h-padding{"data-index": "#{index+1}"}
+                  %span
+                    = cat.name
+      - if @categories.length > 4
+        .view-more-cat.col-xs-12
+          %span.show-more Show More
+          %span.show-less.hidden Show Less
+
+      .subcategories.col-xs-12.no-h-padding.minimized
+        %span
+          Sub Categories 
+        - if @subcategory == nil
+          .subcategory.active.col-xs-12.no-h-padding{'data-index': "0"}
+            %span
+              All
+          -@subcategories.each_with_index do |cat,index|
+            = link_to posts_path(subcategory_id: cat.id, category_id: (@category.id if @category != nil)) do 
+              .subcategory.col-xs-12.no-h-padding{'data-index': "#{index+1}"}
+                %spanf
+                  = cat.name
+              
+        - else 
+          = link_to posts_path do 
+            .subcategory.col-xs-12.no-h-padding{'data-index': "0"}
+              %span
+                All
+          - @subcategories.each_with_index do |cat,index|
+            - if cat == @subcategory
+              .subcategory.active.col-xs-12.no-h-padding
+                %span{style:"float:left"}
+                  = cat.name
+                =link_to posts_path do 
+                  %span{style:"float:right"}
+                    x
+            -else
+              = link_to posts_path(subcategory_id: cat.id) do 
+                .subcategory.col-xs-12.no-h-padding{'data-index': "#{index+1}"}
+                  %span
+                    = cat.name
+      -if @subcategories.length > 4
+        .view-more-subcat.col-xs-12
+          %span.show-more Show More
+          %span.show-less.hidden Show Less
+  .col-md-8.col-md-offset-1.col-sm-12.posts-list.no-h-padding
+    - @posts.each do |post|
+      .post.col-xs-12.no-h-padding
+        .post-image.col-xs-2.no-h-padding
+          - if !post.attachments.empty?
+            - @image = post.attachments.last.image
+            = image_tag @image.url(:index), class: "img-ci"
+          - else
+            %i.fa.fa-image
+
+        .post-info.col-xs-12
+          %span.post-title.col-xs-8.no-h-padding
+            = link_to post do 
+              =post.title
+            
+          %span.post-by.col-xs-12.no-h-padding
+            = "By: " 
+
+            = link_to post.user.first_name + " " + post.user.last_name, '#', data: {target: "#new-convo", toggle: "modal", }, class: "btn popover-trigger", id: "new-convo-toggler" 
+            = "Toronto,Ontario"
+            = post.created_at.to_date
+          %span.post-description.col-xs-12.no-h-padding
+            = post.description
+          .buttons.col-xs-12.no-h-padding
+            .btn.bid-now-index.open-bid-now.col-xs.no-h-padding{"data-id": post.id}
+              %i.fa.fa-usd  
+              Bid Now
+            .col-xs-2.no-h-padding.watch-container
+              - if  current_user.watched_posts.where(post_id: post.id).length > 0
+                = link_to  watched_posts_path(current_user.watched_posts.where(post_id: post.id).first.id), method: :delete, data: {confirm: " Are you sure you want to unwatch this post"}, class: "btn watch-post col-xs-12" do
+                  %i.fa.fa-eye
+                  Forget
+              - else
+                = form_for WatchedPost.new do |f|
+                  = f.hidden_field :user_id, value: current_user.id
+                  = f.hidden_field :post_id, value: post.id
+                  = button_tag(type: "submit", class: "btn watch-post col-xs-12") do
+                    %i.fa.fa-eye
+                    Watch
+
+        -# .post-btns.col-xs-2.no-h-padding
+        -#   = link_to post, class: "col-xs-12" do
+        -#     %button.btn.view-post.col-xs-12
+        -#       View Post
+        -#   %a.col-xs-12{href: "#"}
+        -#     %button.btn.bid-post.col-xs-12
+        -#       Bid Post
+        -#   = form_for WatchedPost.new do |f|
+        -#     = f.hidden_field :user_id, value: current_user.id
+        -#     = f.hidden_field :post_id, value: post.id
+        -#     = f.submit "Watch Post", class: "btn watch-post col-xs-12"
+
+= render 'bid_now'
+
+#new-convo.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+        %h4.modal-title
+          Create New Post
+      .modal-body
+        Test
+
+      .modal-footer
+        .actions
+
+/ %h1 Listing posts
+
+/ %table
+/   %tr
+/     %th Title
+/     %th Description
+/     %th
+/     %th
+/     %th
+
+/   - @posts.each do |post|
+/     %tr
+/       %td= post.title
+/       %td= post.description
+/       %td= link_to 'Show', post
+/       %td= link_to 'Edit', edit_post_path(post)
+/       %td= link_to 'Destroy', post, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+/ %br
+
+/ = link_to 'New Post', new_post_path

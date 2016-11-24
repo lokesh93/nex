@@ -1,0 +1,45 @@
+= render 'layouts/includeScroll'
+= render 'dashboard_nav'
+= render 'layouts/patternbg'
+.custom.container.no-h-padding
+	.page-info
+		.bid-page-status
+			%span Bids &#8226
+			%span
+				=" " + @filter
+		.filter-page
+			Filter:
+			.filters
+				.current-filter
+					/ - @filter = "Won " + "\u2022" + " Complete"
+					= @filter
+					%span.caret 
+				%ul.filter-options
+					%li 
+						= link_to "All", bids_user_path(:filter => "All") 
+					%li  
+						= link_to "Won \u2022 Active", bids_user_path(:filter => "won_active") 
+					%li
+						= link_to "Won \u2022 Complete", bids_user_path(:filter => "won_complete") 
+					%li 
+						= link_to "Lost", bids_user_path(:filter => "lost") 
+					%li 
+						= link_to "cancelled", bids_user_path(:filter => "cancelled") 
+			
+	.column-names
+		.col-xs-2.names-row.padding-left-30
+			Bid Due
+		.col-xs-5.names-row
+			Bid Information
+		.col-xs-3.names-row
+			Bid Status
+		.col-xs-2.names-row
+	.user-bids
+		- @bids.each do |bid|
+			= render 'bid_card', bid:bid
+					
+
+- @bid = Bid.new
+= render 'posts/bid_now'
+.all-bid-container
+	

@@ -1,0 +1,18 @@
+= form_for(@asset, html: { multipart: true }) do |f|
+  - if @asset.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@asset.errors.count, "error")
+        prohibited this upload from being saved:
+      %ul
+        - @asset.errors.full_messages.each do |msg|
+          %li= msg
+  .actions
+    = f.label :image, t('.upload_new_file')
+    = f.file_field :image, multiple: true, name: 'asset[image]'
+    %button.done-btn Upload
+- # jquery upload template #
+  %script#template-upload{:type => "text/x-tmpl"}
+    :cdata
+      <div class="upload">{%=o.name%}<div class="progress"><div class="progress-bar bar" style="width: 0%"></div></div></div>
+      

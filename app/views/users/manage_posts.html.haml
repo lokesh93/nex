@@ -1,0 +1,95 @@
+= render 'layouts/patternbg'
+= render 'layouts/includeScroll'
+.all-bid-container
+.custom.container
+  .column-names
+    .col-xs-2.names-row.padding-left-30.no-h-padding
+      Post Date
+    .col-xs-4.names-row
+      Post
+    .col-xs-2.names-row
+      Exp Date
+    .col-xs-2.names-row.no-h-padding
+      Stats
+    .col-xs-2.names-row
+  .managed_posts
+    -@posts.each do |post|
+      .post
+        .col-xs-2.padding-left-30.watched-date
+          - if (Time.now.to_date - post.created_at.to_date).to_i == 0
+            %span.in-grey
+              Today
+          - else
+            %span.in-grey
+              = ((Time.now.to_date - post.created_at.to_date).to_i).to_s + " days ago"
+          %span.grey-date
+            = post.created_at.to_date.strftime("%B %d, %Y")
+        .col-xs-4.no-h-padding.post-info
+          .img-container
+            - if post.user.profile_pic == nil
+              = image_tag ("//placehold.it/60x60"), class: "img-circle bid-img"
+            -else
+              - @image =post.user.profile_pic.image
+              = image_tag @image.url(:small), class: "img-circle bid-img"
+          .post-text
+            .title
+              = post.title 
+            .info
+              =post.description
+        .col-xs-2.exp-date
+          =post.due_date.to_date.strftime("%B %d, %Y")
+        .col-xs-2.stats.no-h-padding
+          .col-xs-12.no-h-padding
+            %span.stat-column
+              Total Bids: 
+            %span.stat-value
+              = post.bids.where(:legacy => false, :status => "bid-pending").length
+          .col-xs-12.no-h-padding
+            %span.stat-column
+              Comments: 
+            %span.stat-value
+              = post.comments.length
+          - if post.bids.length < 1
+            - lb ="N/A"
+          - else
+            - lb = 10000000;
+            - post.bids.each do |b|
+              - if b.value < lb
+                - lb = b.value
+          .col-xs-12.no-h-padding
+            %span.stat-column
+              Lowest Bid: 
+            %span.stat-value
+              - if post.bids.length > 0
+                = "$"+lb.to_s
+        .col-xs-2.no-h-padding.links-container
+          .bid-links
+            = link_to "Edit Post", edit_post_path(post), remote: true, class: "col-xs-12"
+            = link_to "View All Bids", all_bids_post_path(post), remote:true, class: "all-bids-button col-xs-12"
+      -# .all-bids.bid-slide-down{class: "all-bids-#{post.id}"}
+      -#   .gradient
+      -#   .col-xs-12.title
+      -#     All Bids
+      -#   .all-bids-table.col-xs-10.no-h-padding
+      -#     .bid-vendors.bid-column
+      -#       .vendor-title.column-title
+      -#         Bidding Vendors
+      -#       - @bids =post.bids
+      -#       - @bids.each do |b|
+      -#         .vendor-name.column-value
+      -#           = b.user.account.business_name
+      -#     .bid-amounts.bid-column
+      -#       .amount-title.column-title
+      -#         Bid
+      -#       - @bids =post.bids
+      -#       - @bids.each do |b|
+      -#         .vendor-amount.column-value
+      -#           = number_to_currency(b.value)
+
+
+        / .buttons.col-xs-2.no-h-padding
+        /   = link_to "Modify Bid", edit_bid_path, class: "modify-btn "
+        /   = link_to "Cancel Bid", bid_path(bid.id), method: :delete, data: {confirm: " Are you sure you want to cancel your bid"}, class: "cancel-btn"  
+
+
+

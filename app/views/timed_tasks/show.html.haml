@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Interval:
+  = @timed_task.interval
+%p
+  %b Measure of time:
+  = @timed_task.measure_of_time
+
+= link_to 'Edit', edit_timed_task_path(@timed_task)
+\|
+= link_to 'Back', timed_tasks_path

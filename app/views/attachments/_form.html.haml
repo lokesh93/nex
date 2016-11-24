@@ -1,0 +1,27 @@
+
+- @attachment = Attachment.new
+
+= form_for(@attachment, html: { multipart: true }) do |f|
+  = f.hidden_field :owner_id, value: gallery.id
+  = f.hidden_field :owner_type, value: "Gallery"
+  = f.hidden_field :multipe_files, value: true
+  = f.file_field :image, multiple: false, name: 'attachment[image]', id: "image-input-#{gallery.id}", class: "hidden"
+  %label{for: "image-input-#{gallery.id}", class: "file-upload-#{gallery.name}"}
+    - if !gallery.attachments.empty?
+      - @url = gallery.attachments.last.image.url
+    - else
+      - @url = nil
+
+    .file-upload-container{class: "#{'file-upload-btn' if gallery.attachments.empty? } file-upload-#{gallery.name}",  style: "background-image: url(#{@url})"}
+      .progress-bar
+      - if !gallery.attachments.empty?
+        - @last_attachment = gallery.attachments.last
+        -# = link_to "X", @last_attachment, method: :delete, confirm: 'Delete?', remote:true, class: "destroy-attachment"
+
+      - if gallery.attachments.empty?
+        %span#wrapper
+          = attachment_text
+      - else
+        .upload-btn
+          %i.fa.fa-camera
+          Change Image

@@ -1,0 +1,167 @@
+= render 'layouts/includeScroll'
+= render 'layouts/patternbg'
+#posts-show.col-sm-10.col-xs-12.col-sm-offset-1.no-h-padding
+  .col-sm-3.hidden-xs.sidebar-sm
+    %span.col-xs-12.no-h-padding.sidebar-title
+      VENDORS
+    %span.col-xs-12.no-h-padding.sidebar-desc
+      Explore our needs  
+    = form_tag vendors_path,class: "serach-form col-xs-12 no-h-padding", method: :get do 
+      = text_field_tag :query, params[:query], class: "search-input col-xs-12", placeholder: "Search"
+      = button_tag(type: "submit", class: "btn submit-btn col-xs-12") do
+        Search
+    %span.sidebar-subtitle
+      FILTERS
+    .filters.col-xs-12
+      .cities.col-xs-12.no-h-padding.minimized
+        %span
+          City
+        - if @city == nil
+          .city.active.col-xs-12.no-h-padding{"data-index": "0"}
+            %span
+              All
+          -@cities.each_with_index do |cat,index|
+            = link_to vendors_path(category_id:@cat_id, subcategory_id: @subcat_id, city_id: cat.id) do 
+              .city.col-xs-12.no-h-padding{"data-index": "#{index+1}"}
+                %span
+                  = cat.name
+        - else 
+          = link_to vendors_path do 
+            .city.col-xs-12.no-h-padding{"data-index": "0"}
+              %span
+                All
+          - @cities.each_with_index do |cat, index|
+            - if cat.id.to_s == @city
+              .city.active.col-xs-12.no-h-padding{"data-index": "#{index+1}"}
+                %span{style:"float:left"}
+                  = cat.name
+                =link_to vendors_path do 
+                  %span{style:"float:right"}
+                    x
+            -else
+              = link_to vendors_path(category_id:@cat_id, subcategory_id: @subcat_id, city_id: cat.id) do 
+                .city.col-xs-12.no-h-padding{"data-index": "#{index+1}"}
+                  %span
+                    = cat.name
+      - if @cities.length > 4
+        .view-more-cat.col-xs-12
+          %span.show-more Show More
+          %span.show-less.hidden Show Less
+      .categories.col-xs-12.no-h-padding.minimized
+        %span
+          Categories 
+        - if @category == nil
+          .category.active.col-xs-12.no-h-padding{"data-index": "0"}
+            %span
+              All
+          -@categories.each_with_index do |cat,index|
+            = link_to vendors_path(category_id: cat.id, subcategory_id:nil, city_id:@city ) do 
+              .category.col-xs-12.no-h-padding{"data-index": "#{index+1}"}
+                %span
+                  = cat.name
+        - else 
+          = link_to vendors_path do 
+            .category.col-xs-12.no-h-padding{"data-index": "0"}
+              %span
+                All
+          - @categories.each_with_index do |cat, index|
+            - if cat == @category
+              .category.active.col-xs-12.no-h-padding{"data-index": "#{index+1}"}
+                %span{style:"float:left"}
+                  = cat.name
+                =link_to vendors_path do 
+                  %span{style:"float:right"}
+                    x
+            -else
+              = link_to vendors_path(category_id: cat.id, subcategory_id:nil, city_id:@city ) do 
+                .category.col-xs-12.no-h-padding{"data-index": "#{index+1}"}
+                  %span
+                    = cat.name
+      - if @categories.length > 4
+        .view-more-cat.col-xs-12
+          %span.show-more Show More
+          %span.show-less.hidden Show Less
+
+      .subcategories.col-xs-12.no-h-padding.minimized
+        %span
+          Sub Categories 
+        - if @subcategory == nil
+          .subcategory.active.col-xs-12.no-h-padding{'data-index': "0"}
+            %span
+              All
+          -@subcategories.each_with_index do |cat,index|
+            = link_to vendors_path(subcategory_id: cat.id, category_id: @cat_id) do 
+              .subcategory.col-xs-12.no-h-padding{'data-index': "#{index+1}"}
+                %spanf
+                  = cat.name
+              
+        - else 
+          = link_to vendors_path do 
+            .subcategory.col-xs-12.no-h-padding{'data-index': "0"}
+              %span
+                All
+          - @subcategories.each_with_index do |cat,index|
+            - if cat == @subcategory
+              .subcategory.active.col-xs-12.no-h-padding
+                %span{style:"float:left"}
+                  = cat.name
+                =link_to vendors_path do 
+                  %span{style:"float:right"}
+                    x
+            -else
+              = link_to vendors_path(subcategory_id: cat.id, category_id: @cat_id) do 
+                .subcategory.col-xs-12.no-h-padding{'data-index': "#{index+1}"}
+                  %span
+                    = cat.name
+      -if @subcategories.length > 4
+        .view-more-subcat.col-xs-12
+          %span.show-more Show More
+          %span.show-less.hidden Show Less
+
+  .col-sm-8.col-md-offset-1.col-xs-12.posts-list.no-h-padding
+    - @vendors.each do |ven|
+      - @profileGallery =  ven.galleries.where(name: "Profile_Pictures", owner_id: ven.id, owner_type: "Vendor")
+      -if @profileGallery.empty?
+        -ven.galleries.create(name: "Profile_Pictures", owner_id: ven.id, owner_type: "Vendor", user_id: current_user.id)
+        -@profileGallery =  ven.galleries.where(name: "Profile_Pictures", owner_id: ven.id, owner_type: "Vendor")
+      - @profileGallery = @profileGallery.first
+      .post.col-xs-12.no-h-padding.vendor
+        .post-image.col-xs-2.no-h-padding
+          - if @profileGallery.attachments.empty?
+            %i.fa.fa-image
+          - else  
+            - @image = @profileGallery.attachments.last.image
+            = image_tag @image.url(:index)
+        .post-info.col-xs-8
+          %span.post-title.col-xs-12.no-h-padding
+            = link_to ven do
+              = ven.business_name
+          %span.post-by.col-xs-12.no-h-padding.address
+            //backend needed 
+            - if !ven.physical_locations.empty?
+              - @location = ven.physical_locations.first
+              = @location.address + ", " + @location.city.name + ", " + @location.city.province.name 
+            - else
+              Location Not Listed
+          %span.post-description.col-xs-12.no-h-padding
+            = ven.business_description
+          .tags.col-xs-12.no-h-padding
+            Tags:
+        
+          
+
+
+
+/ #new-convo.modal.fade
+/   .modal-dialog
+/     .modal-content
+/       .modal-header
+/         %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+/           %span{"aria-hidden" => "true"} ×
+/         %h4.modal-title
+/           Create New Post
+/       .modal-body
+/         Test
+
+/       .modal-footer
+/         .actions

@@ -1,0 +1,81 @@
+- if  @activities != nil
+	- @total = @activities.length
+- else
+	- @total = 0 
+- if activity.trackable.kind_of? Comment
+	= link_to activity.trackable.post do
+		.notification-card.col-xs-12{class: "read_#{activity.read} #{@index} #{'last' if @index == (@total - 1)}" }
+			.activity-pic
+				- if activity.owner.profile_pic == nil
+					= image_tag ("//placehold.it/100x100"), class: "notification-pic"
+				-else
+					=image_tag activity.owner.profile_pic.image.url(:thumb), class: "notification-pic"
+			.activity-description
+				%span
+					%strong
+						= activity.owner.first_name + " " + activity.owner.last_name
+					= ((activity.key).split(".")[1]).tr('_',' ')
+					= ': "' 
+					= activity.trackable.content
+
+					='"'
+				%span.time-stamp
+					= time_ago_in_words(activity.created_at) + " ago"
+
+
+
+
+- if activity.trackable.kind_of? Bid
+	= link_to activity.trackable.post do
+		.notification-card.col-xs-12{class: "read_#{activity.read} #{@index} #{'last' if @index == (@total - 1)}" }
+			.activity-pic
+				- if activity.owner.profile_pic == nil
+					= image_tag ("//placehold.it/100x100"), class: "notification-pic"
+				-else
+					=image_tag activity.owner.profile_pic.image.url(:thumb), class: "notification-pic"
+			.activity-description
+				%span
+					%strong
+						= activity.owner.first_name + " " + activity.owner.last_name
+					= ((activity.key).split(".")[1]).tr('_',' ')
+					= ': "' 
+					= activity.trackable.content
+
+					='"'
+				%span.time-stamp
+					= time_ago_in_words(activity.created_at) + " ago"
+
+- if activity.trackable.kind_of? Conversation
+	= link_to activity.trackable do
+		.notification-card.col-xs-12{class: "read_#{activity.read} #{@index} #{'last' if @index == (@total - 1)}" }
+			.activity-pic
+				- if activity.owner.profile_pic == nil
+					= image_tag ("//placehold.it/100x100"), class: "notification-pic"
+				-else
+					=image_tag activity.owner.profile_pic.image.url(:thumb), class: "notification-pic"
+			.activity-description
+				%span
+					%strong
+						= activity.owner.first_name + " " + activity.owner.last_name
+					= ((activity.key).split(".")[1]).tr('_',' ')
+
+				%span.time-stamp
+					= time_ago_in_words(activity.created_at) + " ago"
+
+- if activity.trackable.kind_of? Post
+	= link_to activity.trackable do
+		.notification-card.col-xs-12{class: "read_#{activity.read} #{@index} #{'last' if @index == (@total - 1)}" }
+			.activity-pic
+				- if activity.owner.profile_pic == nil
+					= image_tag ("//placehold.it/100x100"), class: "notification-pic"
+				-else
+					=image_tag activity.owner.profile_pic.image.url(:thumb), class: "notification-pic"
+			.activity-description
+				%span
+					%strong
+						= activity.owner.first_name + " " + activity.owner.last_name
+					= ((activity.key).split(".")[1]).tr('_',' ')
+
+				%span.time-stamp
+					= time_ago_in_words(activity.created_at) + " ago"
+

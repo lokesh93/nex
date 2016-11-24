@@ -1,0 +1,35 @@
+.col-xs-12.no-h-padding.reviews
+  - @reviews.order('created_at DESC').limit(3).each do |r|
+    .review.col-xs-12.no-h-padding
+      - if r.user.profile_pic == nil
+        = image_tag ("//placehold.it/60x60"), class: "img-circle"
+      - else
+        - @image = r.user.profile_pic.image
+        = image_tag @image.url(:small), class: "img-circle"
+      .info
+        .name.col-xs-12.no-h-padding
+          %span
+            = r.user.first_name + " " + r.user.last_name
+          .raiting-star
+
+          :javascript
+            $('.raiting-star').raty({ readOnly: true, score: "#{r.raiting}"});
+        .text.col-xs-12.no-h-padding
+          = r.feedback
+        .datenew
+          = r.created_at.strftime("%B %d, %Y")
+  - @reviews.order('created_at DESC').offset(3).each do |r|
+    - raise
+    .review.less
+      - if r.user.profile_pic == nil
+        = image_tag ("//placehold.it/60x60"), class: "img-circle"
+      - else
+        - @image = r.user.profile_pic.image
+        = image_tag @image.url(:small), class: "img-circle"
+      .info
+        .name.col-xs-12.no-h-padding
+          = r.user.first_name + " " + r.user.last_name
+        .text.col-xs-12.no-h-padding
+          = r.feedback
+        .date
+          = r.created_at.strftime("%B %d, %Y")

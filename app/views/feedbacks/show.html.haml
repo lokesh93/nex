@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Email:
+  = @feedback.email
+%p
+  %b Content:
+  = @feedback.content
+%p
+  %b Fist name:
+  = @feedback.fist_name
+%p
+  %b Last name:
+  = @feedback.last_name
+%p
+  %b Feedback type:
+  = @feedback.feedback_type
+
+= link_to 'Edit', edit_feedback_path(@feedback)
+\|
+= link_to 'Back', feedbacks_path

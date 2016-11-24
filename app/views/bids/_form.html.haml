@@ -1,0 +1,25 @@
+= form_for @bid, class: "form-group" do |f|
+  - if @bid.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@bid.errors.count, "error")} prohibited this bid from being saved:"
+      %ul
+        - @bid.errors.full_messages.each do |msg|
+          %li= msg
+
+  - if @post
+    = f.hidden_field :post_id, value: @post.id
+  - else 
+    = f.hidden_field :post_id, class: "post-id"
+  = f.hidden_field :user_id, value: current_user.id
+  .col-xs-12.bid-input-container
+    %label Bid Amount:
+  .col-xs-12.bid-input-container
+    %span $
+    = f.text_field :value, class: "form-control col-xs-5 amount"
+  .col-xs-12.bid-input-container
+    %label
+      Bid Detail (Try to answer why? What? Where?):
+  .col-xs-12.bid-input-container
+    = f.text_area :info, class: "form-control "
+  .actions.col-xs-12
+    = f.submit 'Bid', class: "bid-submit"

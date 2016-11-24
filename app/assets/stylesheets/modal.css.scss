@@ -1,0 +1,259 @@
+@import 'variables';
+.notice{
+	z-index: 99;
+}
+.modal-backdrop{
+	background:white;
+	z-index:98
+}
+.modal-content{
+	border-radius:0px;
+	-webkit-box-shadow: 0 5px 15px rgba(0,0,0,0);
+  -moz-box-shadow: 0 5px 15px rgba(0,0,0,0);
+  -o-box-shadow: 0 5px 15px rgba(0,0,0,0);
+  box-shadow: 0 5px 15px rgba(0,0,0,0);
+  margin-top: 100px;
+}
+.has-error{
+	border: 1px solid red !important;
+}
+#login{
+	.modal-dialog{
+		.modal-content{
+			.modal-body{
+				.motto{
+					font-size: 10px;
+					color: #777;
+					margin-bottom: 20px;
+				}
+			}
+			a{
+				.login-facebook{
+					border:0px;
+					background:#4B99D7;
+					border-radius:0px;
+					margin-top: 0px;
+					margin-bottom: 5px;
+					height: 45px;
+					color: white;
+				}
+				.login-twitter{
+					border:0px;
+					background:#51C4E8;
+					border-radius:0px;
+					margin-top:0px;
+					margin-bottom: 20px;
+					height: 45px;
+					color: white;
+				}
+			}
+			.before-or{
+				height: 35px;
+				.center-line{
+					height: 17.5px;
+					border-bottom: 1px solid #F3F1F1;
+				}
+			}
+			.circle-container{
+				.or{
+					margin-left: calc(50% - 17.5px);
+					width: 35px;
+					height: 35px;
+					border: 1px solid #F3F1F1;
+					line-height: 35px;
+					text-align: center;
+				}
+			}
+			form{
+				.login-email{
+					height: 45px;
+					border:1px solid #db716a;
+					margin-top: 10px;
+					margin-bottom: 5px;
+				}
+				.login-pass{
+					height: 45px;
+					border:1px solid #db716a;
+					margin-top: 0px;
+					margin-bottom: 20px;
+				}
+				.login-submit{
+					height: 45px;
+					border:1px solid #db716a;
+					margin-top: 0px;
+					margin-bottom: 20px;
+					background: #db716a;
+					color: white;
+				}
+			}
+		}
+	}
+}
+
+#join{
+	.modal-dialog{
+		.modal-content{
+			min-width: 300px;
+			.modal-body{
+				.motto{
+					font-size: 10px;
+					color: #777;
+					margin-bottom:0px;
+				}
+				.slide-1{
+					margin-top: 80px;
+					min-width: 300px;
+					.col-xs-6{
+						margin-bottom:80px;
+						.square-container{
+							width: 150px;
+							position: relative;
+							left:50%;
+							margin-left: -75px;
+							.square{
+								display: table-cell;
+								text-align: center;
+	  						vertical-align: middle;
+								height: 150px;
+								width: 150px;
+								background: #db716a;
+							}
+						}	
+					}
+				}
+				.slide-3{
+					.form-container{
+						form{
+							input{
+								height: 45px;
+								border:1px solid #db716a;
+								margin-bottom: 10px;
+								padding-left: 5px;
+							}
+							.terms-conditions{
+								width: 100% !important;
+								text-align: left !important;
+								font-size: 10px !important;
+								margin-bottom: 10px;
+							}
+							.submit{
+								background: #db716a;
+								color: white;
+								margin-bottom: 30px;
+							}
+							.first-name{
+								width: calc(49% - 2px);
+								margin-top: 20px;
+								
+							}
+							
+							.last-name{
+								margin-left: 4px;
+								width: calc(49% - 2px);
+								margin-top: 20px;
+								
+							}
+							.city-select{
+								height: 45px;
+							  border: 1px solid #db716a;
+							  background-color: white;
+							  float: left;
+							  display: block;
+							  margin-bottom: 10px;
+							}
+						}
+					}
+				}
+				.slide-2{
+					margin-top: 20px;
+					a{
+						.login-facebook{
+							border:0px;
+							background:#4B99D7;
+							border-radius:0px;
+							margin-top: 0px;
+							margin-bottom: 5px;
+							height: 45px;
+							color: white;
+						}
+						.login-twitter{
+							border:0px;
+							background:#51C4E8;
+							border-radius:0px;
+							margin-top:0px;
+							margin-bottom: 20px;
+							height: 45px;
+							color: white;
+						}
+					}
+					.before-or{
+						height: 35px;
+						.center-line{
+							height: 17.5px;
+							border-bottom: 1px solid #F3F1F1;
+						}
+					}
+					.email-signup{
+						border:0px;
+						background:#db716a;
+						border-radius:0px;
+						margin-top: 20px;
+						margin-bottom: 0px;
+						height: 45px;
+						color: white;
+					}
+					.end-slide-2{
+						margin-bottom: 40px;
+					}
+					.circle-container{
+						.or{
+							margin-left: calc(50% - 17.5px);
+							width: 35px;
+							height: 35px;
+							border: 1px solid #F3F1F1;
+							line-height: 35px;
+							text-align: center;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.circle-sliders{
+	.disabled-circ{
+		.slider-circle:hover{
+			cursor: pointer
+		}
+	}
+	.circ-container{
+		margin-top: -20px;
+		height: 10px;
+		display: inline-block;
+		margin-bottom: 27px;
+		.active{
+			background: #db716a !important;
+		}
+		.slider-circle{
+			display: inline-block;
+			width: 10px;
+			height: 10px;
+			background: #FED4A9;
+
+		}
+		.slider-circle:hover{
+			cursor: pointer;
+		}
+		.active:hover{
+			cursor: default !important;
+		}
+	}
+}
+.center-line{
+
+}
+.circleBase {
+    border-radius: 50%;
+    behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+}

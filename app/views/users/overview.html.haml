@@ -1,0 +1,115 @@
+= render 'layouts/includeScroll'
+= render 'dashboard_nav'
+= render 'posts/bid_now'
+.all-bid-container
+.custom.container.no-h-padding.overview
+	.overview-side-bar.no-h-padding
+		- if @profileGallery
+			.profile-pic{class: "gallery-container-#{@profileGallery.id}"}
+				= render 'attachments/form', attachment: Attachment.new, gallery: @profileGallery, attachment_text: "UPLOAD PROFILE PICTURE"
+		#side-bar-name
+			= @user.first_name + " " + @user.last_name
+		#side-bar-location
+			- if @user.account_type == "Vendor"
+				- if !@user.account.physical_locations.empty?
+					= @user.account.physical_locations.first.city.name + "," + @user.account.physical_locations.first.city.province.name 
+		#side-bar-membersince
+			= "Member since " + @user.created_at.strftime("%B %Y")
+		= link_to "EDIT PROFILE", edit_user_path(@user), class: "edit-profile-sidebar"
+		#posts-you-might-like
+			.title
+				Posts you might like
+			%ul
+				- @posts.each do |p|
+					= link_to p do
+						%li.post-suggestion
+							.suggestion-name
+								= "   " + p.user.first_name + " " + p.user.last_name
+							.suggestion-title
+								= '"' + p.title + '"'
+	#main-overview
+		.welcome-message.border-gray.padding-left-30
+			.title
+				Welcome to SpoiltRoyal,
+				= @user.first_name + " " + @user.last_name + "!"
+			.message-text
+				This is your dashboard, you can find your company, bidding, reviews, and statistics here all in one piece!Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis nunc porta, suscipit justo non, bibendum orci. Cras interdum malesuada tincidunt.
+				= link_to "Browse posts", posts_path
+		.inbox-overview.border-gray.no-h-padding.container-overview
+			.title.padding-left-30.container-title
+				Unread Messages
+			%ul.unread-msgs.custom-container
+				- @messages = PublicActivity::Activity.where(recipient_id: current_user.id, trackable_type: "Conversation").order(created_at: :desc).limit(3)
+				- @messages.each do |c|
+					- convo = c.trackable
+					- convo.users.each do |u|
+						- if u != current_user
+							- @user = u
+					.convo.padding-left-30
+						.col-xs-1.no-h-padding.img-container
+							- if @user.profile_pic == nil
+								= image_tag ("//placehold.it/60x60"), class: "img-circle bid-img"
+							-else
+								- @image = @user.profile_pic.image
+								= image_tag @image.url(:small), class: "img-circle bid-img"
+						.col-xs-9.convo-info
+							= link_to @user.first_name + " " + @user.last_name + " \u2022 " + '("' + convo.subject + '")', conversation_path(convo), class: "convo-subject"
+							.convo-latest-message
+								= convo.messages.last.info
+							.message-date
+								= convo.last_msg.strftime("%B %d, %Y")
+						.col-xs-2.no-h-padding.status
+							- if convo.subject != "inquiry"
+								- if current_user.account_type == "Vendor"
+									- @post = Post.where(:title => convo.subject, user_id: @user.id ).first
+									- @bid = @post.bids.where(user_id: current_user.id).first
+								- else
+									- @post = Post.where(:title => convo.subject, user_id: current_user.id ).first
+									- @bid = @post.bids.where(user_id: @user.id).first
+								.bid-status{class: "#{@bid.status}"}
+									- if @bid.status == "bid-pending"
+										= "Bidded \u2022 Pending" 
+									- elsif @bid.status == "accepted"
+										= "Bid Won"
+									- elsif @bid.status == "Lost"
+										Bid Lost
+									- else
+										Bid Cancelled
+								.bid-amount
+									= number_to_currency(@bid.value)
+							- else
+								.inquiry
+									inquiry
+
+
+		-# .verfication-overview.border-gray
+		-# 	.title
+		-# 		Verification
+		- if current_user.account.kind_of? Vendor
+			.bidding-overview.border-gray.container-overview
+				.title.container-title.padding-left-30
+					Recent Bidding
+				.user-bids
+					- 
+					- current_user.bids.order(created_at: :desc).limit(3).each do |bid|
+						= render 'bid_card', bid:bid
+			-# .current-projects-overview.border-gray.container-overview
+			-# 	.title.container-title.padding-left-30
+			-# 		Current projects
+			.reviews-overview.border-gray.container-overview
+				.title.container-title.padding-left-30
+					Recent Reviews
+				- @reviews = Review.where(:vendor_id => current_user.account.id)
+				.reviews-container.padding-left-30.border-gray.overview-review
+					= render 'vendors/reivew_list'
+
+		- if current_user.account.kind_of? Consumer
+			.verfication-overview.border-gray
+				.title
+					Active Posts
+				%ul
+				/ = render 'bid_act', :bids => @bids, :filter => @filter, :user_posts => @user_posts
+
+
+
+

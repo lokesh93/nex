@@ -1,0 +1,184 @@
+@import 'variables';
+.bid-slide-down{
+	min-height: 190px;	
+	overflow: auto;
+	background-color: #F5F5F5;
+	border: 1px solid #E9E9E9;
+	.gradient-space{
+		height: 30px;
+		width: 100%;
+	}
+	.gradient{
+		height: 30px;
+		width:100%;
+		background: #f2f2f2;
+		background:-moz-linear-gradient(top, #f2f2f2, #f7f7f7);
+		background:-webkit-linear-gradient(top, #f2f2f2, #f7f7f7);
+		background:-o-linear-gradient(top, #f2f2f2, #f7f7f7);
+		background:-ms-linear-gradient(top, #f2f2f2, #f7f7f7);
+		background:linear-gradient(top, #f2f2f2, #f7f7f7);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f2f2f2', endColorstr='#f7f7f7',GradientType=0);
+	}
+	.bid-history-ui-container,.bid-history-date-container{
+		width: 90%;
+		overflow:hidden;
+		height: 100px;
+		float: left;
+	}
+
+	.total-bid-1{
+		.bids-length-space{
+			height: 100px;
+			width: calc((100% - 75px)/2);
+			float: left;
+		}
+		.line-container,.space{
+			width: calc((100% - 75px)/2);
+		}
+	}
+	.total-bid-2{
+		.bids-length-space{
+			height: 100px;
+			width: calc((100% -(150px + ((100% - 75px)/3)))/2);
+			float: left;
+		}
+		.final-line{
+			width: calc((100% -(150px + ((100% - 75px)/3)))/2) !important;
+		}
+		.line-container,.space{
+			width: calc((100% - 75px)/3);
+		}
+	}
+
+	.total-bid-3{
+		.bids-length-space,.final-line{
+			height: 100px;
+			width: calc((100% - (225px + 2*((100% - 300px)/3)))/2);
+			float: left;
+		}
+
+	}
+
+	.target-space{
+		width: 5%;
+		float: left;
+		height: 100px;
+		line-height: 100px;
+    text-align: center;
+    font-size: 41px;
+	}
+	.circle{
+		width: 75px;
+		height:75px;
+		margin-top: 12.5px;
+		border-radius:37.5px;
+		border: 2px solid $rose;
+		text-align:center;
+		line-height:75px;
+		float: left;
+	}
+	.space{
+		width: calc((100% - 300px)/3);
+		height: 1px;
+		float: left;
+	}
+	.date{
+		padding-bottom:50px;
+		text-align:center;
+		width: 75px;
+		float: left;
+	}
+	.line-container{
+		width: calc((100% - 300px)/3);
+    height: 100px;
+    overflow: hidden;
+    float: left;
+		.line{
+			height: 100px;
+			width:5px;
+			float: left;
+			div{
+				height: 50%;
+				border-bottom: 2px solid $rose;
+			}
+		}
+	}
+	.title{
+		padding-left: 30px;
+		font-weight: bold;
+		color: #4C423C;
+		margin-top: -8px;
+		font-size: 15px;
+		padding-bottom: 30px;
+	}
+	.all-bids-table{
+		margin-bottom: 30px;
+		.bid-vendors{
+			width: 60%;
+			padding-left: 30px;
+			float: left;
+		}
+		.bid-amounts{
+			width: 40%;
+			padding-left: 0px;
+			float: right;
+		}
+		.bid-column{
+			.column-title{
+				color: #707070;
+				font-weight: bold;
+				margin-bottom: 10px;
+			}
+			.column-value{
+				margin-bottom: 8px;
+			}
+
+		}
+	}
+	.info-container{	
+		margin-bottom: 30px;
+		.col-xs-4{
+			.attr{
+				color: #707070;
+				font-weight: bold;
+				padding-right: 30px;
+				width: 105px;
+				float: left;
+				margin-bottom: 15px;
+			}
+			.value{
+				width: calc(100% - 105px);
+				position: relative;
+				float: right;
+				text-align: left;
+			}
+
+		}
+
+	}
+	.buttons{
+		a{
+			display: block;
+			padding:0px;
+			margin-left:15px;
+			width: calc(100% - 30px);
+			height: 30px;
+			text-align: center;
+			color: white;
+			font-weight: bold;
+			line-height: 30px;
+		}
+		a:hover{
+			text-decoration: none;
+		}
+		.modify-btn{
+			background-color: #EBB87F;
+			margin-bottom: 5px;
+		}
+		.cancel-btn{
+			background-color: #FC9292;
+		}
+
+	}
+
+}

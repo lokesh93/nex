@@ -1,0 +1,28 @@
+- @attachment = Attachment.new
+- if gallery == nil
+  - @gallery = @vendor.media
+-else
+  - @gallery = gallery
+= form_for(@attachment, html: { multipart: true }, remote:true) do |f|
+  = f.hidden_field :owner_id, value: @gallery.id
+  = f.hidden_field :owner_type, value: "Gallery"
+  = f.hidden_field :multipe_files, value: true
+  = f.file_field :image, multiple: false, name: 'attachment[image]', id: "image-input-#{gallery.id}", class: "hidden"
+  - if @gallery != nil
+    - @gallery.attachments.each do |attachment|
+
+      %label
+        - if attachment.embedded_id != ""
+
+          .file-upload-container{  style: "background-image: url(http://img.youtube.com/vi/#{attachment.embedded_id}/default.jpg)"}
+            = link_to "X", attachment, method: :delete, confirm: 'Delete?', remote:true, class: "destroy-attachment"
+            %span.centered-icon
+              %i.fa.fa-youtube-play
+        - else
+          .file-upload-container{  style: "background-image: url(#{attachment.image.url})"}
+            = link_to "X", attachment, method: :delete, confirm: 'Delete?', remote:true, class: "destroy-attachment"
+  = render 'attachments/media_upload_button', gallery:@gallery
+  .col-xs-12.no-h-padding.not-centered.embedded-link-container
+    = f.text_field :embedded_id , class: "col-xs-10 no-h-padding embbedded-submit"
+    = f.submit "Add Video Link", class: "next col-xs-2 no-h-padding"
+        

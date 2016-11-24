@@ -1,0 +1,95 @@
+
+.modal.fade{:id => "join", "aria-hidden" => "true", "aria-labelledby" => "join", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content.col-sm-8.col-sm-offset-2.col-xs-10.col-xs-offset-1
+      .modal-body.support-body.text-center
+        .col-xs-12.text-center
+          JOIN SpoiltRoyal
+        .col-xs-12.motto
+          Chocolate cake halva cookie oat cake jelly beans
+        .slide-1.col-xs-12.no-h-padding
+          .col-xs-6.no-h-padding
+            .square-container.seeking
+              .square.no-h-padding
+                %span
+                  %span.col-xs-12
+                    I am
+                  %span.col-xs-12
+                    SEEKING
+                  %span.col-xs-12
+                    services
+          .col-xs-6.no-h-padding
+            .square-container.offering
+              .square.no-h-padding
+                %span
+                  %span.col-xs-12
+                    I am
+                  %span.col-xs-12
+                    OFFERING
+                  %span.col-xs-12
+                    services
+          / .col-xs-12.circle-sliders
+          /   .circ-container.col-xs-12.disable-circ
+          /     .slider-circle.circleBase.active.join-slide-1{onclick: "return false;"}
+          /     .slider-circle.circleBase.join-slide-2{onclick: "return false;"}
+          /     .slider-circle.circleBase.join-slide-3{onclick: "return false;"}
+          /   .click-blocker
+
+        .slide-2.col-xs-12.no-h-padding.hidden
+          = link_to auth_path(provider: "facebook", type:""), class: "fb-signup" do
+            %button.col-xs-10.col-xs-offset-1.login-facebook
+              SIGN UP WITH FACEBOOK
+          = link_to "/#" do
+            %button.col-xs-10.col-xs-offset-1.login-twitter
+              SIGN UP WITH TWITTER
+          .col-xs-3.col-xs-offset-2.before-or.no-h-padding
+            .col-xs-12.no-h-padding.no-v-padding.center-line
+          .col-xs-2.circle-container.no-h-padding
+            .or.circleBase
+              OR
+          .col-xs-3.before-or.no-h-padding
+            .col-xs-12.no-h-padding.no-v-padding.center-line
+
+          %button.col-xs-10.col-xs-offset-1.email-signup
+            SIGN UP WITH EMAIL
+          .col-xs-12.motto.end-slide-2
+            / Already Have an Account?
+            / .motto.click-to-login
+            /   Log in Now
+
+          .col-xs-12.circle-sliders
+            .circ-container.col-xs-12
+              .slider-circle.circleBase.join-slide-1
+              .slider-circle.circleBase.active.join-slide-2
+              .slider-circle.circleBase.join-slide-3
+        .slide-3.col-xs-12.no-h-padding.hidden
+          .col-xs-10.col-xs-offset-1.no-h-padding.form-container
+            -# = form_for User.new, id: "new-user" do |f|
+            = form_tag( users_path, id: "new-user", :method=>'post', :multipart => true) do 
+              -# = f.text_field :first_name, class: "first-name", placeholder: "First Name"
+              = text_field_tag :first_name,nil, class: "first-name", placeholder: "First Name"
+              = text_field_tag :last_name,nil, class: "last-name",placeholder: "Last Name"
+              = text_field_tag :email,nil, class: "col-xs-12 no-h-padding", placeholder: "Email Address"
+              = password_field_tag :password,nil, class: "col-xs-12 no-h-padding", placeholder: "Password"
+              = password_field_tag :password_confirmation,nil, class: "col-xs-12 no-h-padding",placeholder: "Re-enter Password"
+              = hidden_field_tag :account_type,nil,class: "account-type"
+              -# = f.text_field :last_name, class: "last-name", placeholder: "Last Name"
+              -# = f.text_field :email, class: "col-xs-12 no-h-padding", placeholder: "Email Address"
+              -# = f.password_field :password, class: "col-xs-12 no-h-padding", placeholder:"Password"
+              -# = f.password_field :password_confirmation, class: "col-xs-12 no-h-padding", placeholder:"Re-enter Password"
+              -# = f.hidden_field :account_type, class: "account-type"
+              = select_tag :city_id, options_for_select(City.all.collect { |c| [c.name, c.id] }),class: "city-select select 7 col-xs-12"
+              .terms-conditions
+                By signing up, I agree to Nathan's Exchange's terms and services
+              = submit_tag "SIGN UP", class: "col-xs-12 no-h-padding submit"
+            .col-xs-12.circle-sliders
+              .circ-container.col-xs-12
+                .slider-circle.circleBase.join-slide-1
+                .slider-circle.circleBase.join-slide-2
+                .slider-circle.circleBase.active.join-slide-3
+
+
+
+
+
+

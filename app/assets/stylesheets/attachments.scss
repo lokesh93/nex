@@ -1,0 +1,32 @@
+// Place all the styles related to the attachments controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'variables';
+#full-img{
+  .modal-dialog{
+    width: 100% !important;
+    .modal-content{
+      background-color: white;
+    }
+  }
+}
+.media{
+  border: 2px solid #EAE6E1;
+  border-left: 0;
+  border-right: 0;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  .content{
+    margin-top: 30px;
+    overflow-x: auto;
+    width: 868px;
+    white-space: nowrap;
+    height: 170px;
+    text-align: center;
+    img{
+      height: 150px;
+      width: 225px;
+      display: inline-block;
+    }
+  }
+}

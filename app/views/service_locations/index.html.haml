@@ -1,0 +1,21 @@
+%h1 Listing service_locations
+
+%table
+  %tr
+    %th Vendor
+    %th City
+    %th
+    %th
+    %th
+
+  - @service_locations.each do |service_location|
+    %tr
+      %td= service_location.vendor_id
+      %td= service_location.city_id
+      %td= link_to 'Show', service_location
+      %td= link_to 'Edit', edit_service_location_path(service_location)
+      %td= link_to 'Destroy', service_location, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Service location', new_service_location_path

@@ -1,0 +1,22 @@
+
+.modal.fade.col-xs-12{:id => "full-img", "aria-hidden" => "true", "aria-labelledby" => "login", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content.col-sm-8.col-sm-offset-2.col-xs-10.col-xs-offset-1
+      .modal-body.support-body.text-center
+        - if attachments
+          - attachments.each_with_index do |a,index|
+            .full-img.img-container{style: "display:none", 'data-id': a.id}
+              - if index != 0 
+                %span.img-option.left.active{'data-target'=> attachments[index-1].id}
+                  %i.fa.fa-chevron-left
+              - else
+                %span.img-option.left.not-active
+                  %i.fa.fa-chevron-left
+              .img
+                = image_tag a.image.url(:full) 
+              - if attachments[index+1] != nil 
+                %span.img-option.right.active{'data-target' => attachments[index+1].id}
+                  %i.fa.fa-chevron-right
+              - else 
+                %span.img-option.right.not-active
+                  %i.fa.fa-chevron-right

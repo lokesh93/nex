@@ -1,0 +1,14 @@
+= form_for @comment, class: "form-group" do |f|
+  - if @comment.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@comment.errors.count, "error")} prohibited this comment from being saved:"
+      %ul
+        - @comment.errors.full_messages.each do |msg|
+          %li= msg
+
+  .col-xs-12.bid-input-container
+    = f.text_area :content, class: "col-xs-12 form-control", placeholder: "Ask A Question"
+    = f.hidden_field :post_id, value: @post.id 
+    = f.hidden_field :user_id, value: current_user.id
+  .actions.col-xs-12.bid-input-container
+    = f.submit 'Save', class: "bid-submit"

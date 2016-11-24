@@ -1,0 +1,211 @@
+// Place all the styles related to the pages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: honttp://sass-lang.com/
+@import 'variables';
+.small-img:hover{
+  cursor: pointer;
+}
+#full-img{
+  background-color:rgb(99, 99, 99);
+  .modal-dialog{
+    .modal-content{
+    }
+  }
+}
+.full-img{
+  width: 100%;
+  *{
+    display: inline-block;
+
+  }
+  .img{
+    width: 80%;
+    img{
+      max-width: 100%;
+      max-height: 100%;
+
+    }
+  }
+  span{
+    font-size: 40px;
+    width: 10%;
+    line-height: 100%;
+    visibility: hidden;
+  }
+  span.active{
+    color: #DB716A;
+  }
+  span.active:hover{
+    cursor: pointer;
+  }
+
+}
+.full-img:hover{
+  span{
+    visibility: visible;
+  }
+}
+//admin panel
+.admin-pannel{
+  background-color:white;
+  .row{
+    border-bottom:1px solid #DB716A;
+    .title{
+      font-weight: bold;
+      font-size: 14px;
+    }
+  }
+  .row-0{
+    background-color:#F2C17D !important;
+  }
+  .title-row{
+    border-top:1px solid #DB716A
+  }
+
+
+}
+.post-modal{
+  margin-left: calc(50% - 400px);
+  width: 800px;
+  .modal-body{
+    text-align: left;
+    padding: 30px;
+    overflow: auto;
+    .slide-2{
+      display: none;
+    }
+    .title{
+      color: #DB716A;
+      margin-top: 0;
+    }
+    .buttons{
+      margin-top: 20px;
+      text-align: center;
+      *{
+        height: 50px;
+        background-color: #DB716A;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        display: inline-block;
+        width: 200px;
+        font-size: 18px;
+        line-height: 50px;
+      }
+      *:hover{
+        cursor: pointer;
+        
+      }
+      .slide-2{
+        display: none
+      }
+      form{
+        margin-top: 20px;
+        text-align: center;
+        *{
+          height: 50px;
+          background-color: #DB716A;
+          color: white;
+          font-weight: bold;
+          text-align: center;
+          display: inline-block;
+          width: 200px;
+          font-size: 18px;
+          line-height: 50px;
+        }
+        *:hover{
+          cursor: pointer;
+          
+        }
+      }
+    }
+    .add-img{
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      border: 1px solid #ffc285;
+      display: block
+    }
+    .payment-methods{
+      text-align: center;
+      .fields{
+        display: block;
+        float: left;
+        margin-right: 20px;
+      }
+    }
+    .ri{
+      font-weight: bold;
+      color: #DB716A;
+      font-size: 15px;
+      margin-left: 10px;
+    }
+    .ai{
+      font-weight: bold;
+      color: #DB716A;
+      font-size: 15px;
+      margin-bottom: 20px;
+    }
+    select{
+      height: 50px;
+      background-color: white;
+      border:1px solid #ffc285;
+      width: 20%;
+      margin-bottom: 10px;
+    }
+    .needed{
+      margin-top: 10px;
+    }
+    .other-label{
+      float: left;
+    }
+    .other-input{
+      float: left;
+      height: 30px;
+      margin-top: -5px;
+      margin-left: 10px;
+    }
+    .next-imgs{
+     
+    }
+    .vendor-title{
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+    .datepicker{
+      margin-right: 40%;
+    }
+    input{
+      height: 50px;
+      border: 1px solid #ffc285;
+      display: block;
+    }
+    .next{
+      height: 50px;
+      background-color: #DB716A;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      display: inline-block;
+      width: 200px;
+      font-size: 18px;
+      line-height: 45px;
+      position: relative;
+    }
+    .next:hover{
+      cursor: pointer;
+    }
+    textarea{
+      height: 200px;
+      border: 1px solid #ffc285;
+    }
+    .img-btn{
+      display: none
+    }
+  }
+}
+.stars{
+  img{
+    height: 21px;
+  }
+}

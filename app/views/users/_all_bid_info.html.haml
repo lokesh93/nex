@@ -1,0 +1,56 @@
+.modal.fade{:id => "all_bid_info", "aria-hidden" => "true", "aria-labelledby" => "all_bid_info", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content.col-xs-12.custom.container
+      .modal-body.support-body
+        .bids-cont.border-gray
+          .title
+            BID ACTIVITES
+          - if @post.bids.empty?
+            .no-bids
+              No Bids Have Been Made For This Post
+          - else
+            .bid-table
+              .row-post.col-xs-12
+                .value.heading.col-xs-4.no-h-padding.dark-text
+                  Bid Value
+                .date.heading.col-xs-4.no-h-padding.dark-text
+                  Bid Date
+                .status.heading.col-xs-4.no-h-padding.dark-text
+                  Bid Status
+              - @firstBids = @post.bids.order('id DESC').limit(3)
+              - @firstBids.each do |bid|
+                .row-post.col-xs-12
+                  .value.col-xs-4
+                    %span.green
+                      = "$"
+                    ="#{bid.value}"
+                  .date.col-xs-4.no-h-padding
+                    %span.col-xs-12.no-h-padding
+                      - if (Time.now.to_date - (bid.created_at.to_date)).to_i == 0
+                        Today
+                      - else
+                        = ((Time.now.to_date - (bid.created_at.to_date)).to_i).to_s + " days ago"
+                  .status.col-xs-4.no-h-padding
+                    %span.col-xs-12.no-h-paddingg{class: "#{"orange" if bid.status != "bid-pending"} #{"green" if bid.status == "bid-pending"}"}
+                      = bid.status
+              - @viewbids = false
+              - @restBids = @post.bids.order('created_at DESC').offset(3)
+              - @restBids.each do |bid|
+                - @viewbids = true
+                .row-post.rest-of-bids.col-xs-12
+                  .value.col-xs-4
+                    %span.green
+                      = "$"
+                    ="#{bid.value}"
+                  .date.col-xs-4.no-h-padding
+                    %span.col-xs-12.no-h-padding
+                      - if (Time.now.to_date - (bid.created_at.to_date)).to_i == 0
+                        Today
+                      - else
+                        = ((Time.now.to_date - (bid.created_at.to_date)).to_i).to_s + " days ago"
+                  .status.col-xs-4.no-h-padding
+                    %span.col-xs-12.no-h-padding{class: "#{"orange" if bid.status != "bid-pending"} #{"green" if bid.status == "bid-pending"}"}
+                      = bid.status
+          - if @viewbids
+            .more-or-less.view-more
+              view more

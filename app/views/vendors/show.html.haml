@@ -1,0 +1,101 @@
+= render 'layouts/includeScroll'
+-if current_user == @vendor.user
+  = render 'users/dashboard_nav'
+.custom.container
+  .vendor-show
+    .vendor-cover-container
+      .vendor-cover-uperlayer
+        .vendor-cover
+        .cover-content
+          .info
+            .name.col-xs-12.no-h-padding
+              - if @vendor.business_name == nil or @vendor.business_name == ""
+                = @vendor.user.first_name + " " + @vendor.user.last_name
+              - else
+                = @vendor.business_name
+            .location.col-xs-12.no-h-padding
+              = "Location: "
+              - if  @vendor.physical_locations.empty?
+                = ""
+              - elsif @vendor.physical_locations.length > 1
+                = Multiple Locations
+              - else
+                = @vendor.physical_locations.first.address.split.map(&:capitalize).join(' ') +", "+ @vendor.physical_locations.first.city.name + ", " + @vendor.physical_locations.first.city.province.short_name
+            .raitings
+              //BACKEND NEEDED
+              - if @current_raiting == nil
+                - @current_raiting = Review.new
+              = form_for @current_raiting, :html => {:class => "raiting-form"} do |f|
+                .stars-raiting.stars-show
+                - if @current_raiting != nil
+                  :javascript
+                    $('.stars-show').raty({ readOnly: true, score: "#{@vendor.total_raiting}"});
+                - else
+                  :javascript
+                    $('.stars-show').raty({ readOnly: true, score: "#{@vendor.total_raiting}"});
+                = f.hidden_field :raiting, value: 0, class: "raiting"
+                = f.hidden_field :user_id, value: current_user.id
+                = f.hidden_field :vendor_id, value: @vendor.id
+          .work-and-buttons
+            .work-examples.col-xs-12.no-h-padding
+              - if @vendor.media != nil
+                - @vendor.media.attachments.order('created_at DESC').limit(4).each_with_index do |asset,index|
+                  = image_tag asset.image(:vendor_media), class: "work-image-#{index}"
+            .col-xs-12.no-h-padding.buttons
+              / .contact-us
+              /   = mail_to @vendor.user.email, "Contact us", subject: "Hi, I saw you on SpoiltRoyal."
+
+
+
+
+      - if @vendor.cover_pic == nil
+        = image_tag ("//placehold.it/180X191")
+      - else
+        - @image = @vendor.cover_pic.image
+        = image_tag @image.url(:vendor_cover)
+    .col-xs-12.no-h-padding.vendor-content
+      .col-xs-12.description-container.no-h-padding
+        .h5.title.vendor-title
+          DESCRIPTION:
+        .description.less
+          = @vendor.business_description
+        - if @vendor.business_description != nil
+          - if @vendor.business_description.length > 382
+            %span.read-more-des.read
+              Read more
+            %span.read-less-des.read
+              Read less
+      .col-xs-12.no-h-padding.industries-content
+        .h5.title.vendor-title.col-xs-12.no-h-padding
+          SERVICE OFFERED:
+        .industries.col-xs-12.no-h-padding
+          - @vendor.vendor_subscriptions.each do |vs|
+            .service.col-xs-4.no-h-padding
+              = vs.subcategory.name
+      -# .col-xs-12.no-h-padding.tags-container
+      -#   .title
+      -#     Tags:
+      -#   .tags
+      -#     .tag
+      -#       Wedding
+      -#     .tag
+      -#       Photography
+      -#     .tag
+      -#       Random
+      -#     .tag
+      -#       Lorem
+      - if !(@vendor.media.attachments.empty?)
+        - @attachments = @vendor.media.attachments
+        = render 'media'
+      .col-xs-12.no-h-padding.reviews-container
+        .col-xs-12.no-h-padding
+          .h5.title.vendor-title
+            REVIEWS
+          = render 'reivew_list'
+        - if can? :create, Review
+          .col-xs-12.no-h-padding
+            .write-review.new-review
+              Write a Review
+
+= render 'new_review'
+= render 'layouts/full_image', attachments:@vendor.media.attachments.order('created_at DESC')

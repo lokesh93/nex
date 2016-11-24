@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Legal first name:
+  = @personal_info.legal_first_name
+%p
+  %b Legal last name:
+  = @personal_info.legal_last_name
+%p
+  %b Preferred name:
+  = @personal_info.preferred_name
+%p
+  %b Email:
+  = @personal_info.email
+%p
+  %b Title:
+  = @personal_info.title
+%p
+  %b Primary phone:
+  = @personal_info.primary_phone
+%p
+  %b Secondary phone:
+  = @personal_info.secondary_phone
+%p
+  %b Vendor:
+  = @personal_info.vendor_id
+
+= link_to 'Edit', edit_personal_info_path(@personal_info)
+\|
+= link_to 'Back', personal_infos_path

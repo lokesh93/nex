@@ -1,0 +1,29 @@
+= render 'layouts/includeScroll'
+- @convo =  @conversation 
+- @message = Message.new
+.custom.container
+  .column-names
+    .col-xs-10.names-row.padding-left-30
+      Message
+    .col-xs-2.names-row
+      Status
+  .convo-container
+    .convo-title
+    
+    .message-list
+      - @convo.messages.each do |m|
+        .other.message
+          .img-container
+            - if m.user.profile_pic == nil
+              = image_tag ("//placehold.it/60x60"), class: "img-circle"
+            -else
+              - @image = m.user.profile_pic.image
+              = image_tag @image.url(:small), class: "img-circle" 
+            .username
+              = m.user.first_name
+          .text
+            = m.info
+
+
+    = render 'messages/form'
+

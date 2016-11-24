@@ -1,0 +1,7 @@
+.media.col-xs-12.no-h-padding
+  .h5.title.vendor-title
+    MEDIA
+  .content.col-xs-12.no-h-padding
+    - @attachments.each do |asset|
+      %label.small-img{'data-id' => asset.id }
+        = image_tag asset.image.url(:post_media)

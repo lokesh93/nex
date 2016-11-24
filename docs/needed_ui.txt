@@ -1,0 +1,14 @@
+- posts show
+- posts form
+- user dropdown
+- statistic
+- post advance search
+- consumer signup form
+- consumer profile
+- account-page
+
+
+-needed_backend
+  post show
+    prefered payment ? 
+    urgency ?

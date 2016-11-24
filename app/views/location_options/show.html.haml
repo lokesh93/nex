@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @location_option.name
+
+= link_to 'Edit', edit_location_option_path(@location_option)
+\|
+= link_to 'Back', location_options_path

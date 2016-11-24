@@ -1,0 +1,21 @@
+%h1 Listing timed_tasks
+
+%table
+  %tr
+    %th Interval
+    %th Measure of time
+    %th
+    %th
+    %th
+
+  - @timed_tasks.each do |timed_task|
+    %tr
+      %td= timed_task.interval
+      %td= timed_task.measure_of_time
+      %td= link_to 'Show', timed_task
+      %td= link_to 'Edit', edit_timed_task_path(timed_task)
+      %td= link_to 'Destroy', timed_task, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Timed task', new_timed_task_path

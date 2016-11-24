@@ -1,0 +1,33 @@
+.modal.fade{:id => "login", "aria-hidden" => "true", "aria-labelledby" => "login", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content.col-sm-8.col-sm-offset-2.col-xs-10.col-xs-offset-1
+      .modal-body.support-body.text-center
+        .col-xs-12.text-center
+          ENTER SpoiltRoyal
+        .col-xs-12.text-center.motto
+          Chocolate cake halva cookie oat cake jelly beans
+        = link_to auth_path(provider: "facebook") do
+          %button.col-xs-10.col-xs-offset-1.login-facebook
+            LOG IN WITH FACEBOOK
+        = link_to "/#" do
+          %button.col-xs-10.col-xs-offset-1.login-twitter
+            LOG IN WITH TWITTER
+        .col-xs-3.col-xs-offset-2.before-or.no-h-padding
+          .col-xs-12.no-h-padding.no-v-padding.center-line
+        .col-xs-2.circle-container.no-h-padding
+          .or.circleBase
+            OR
+        .col-xs-3.before-or.no-h-padding
+          .col-xs-12.no-h-padding.no-v-padding.center-line
+        .row
+          .col-xs-12
+            = form_for UserSession.new do |f|
+              = f.text_field :email, :placeholder => "Email Address", class: "login-email col-xs-10 col-xs-offset-1 #{ 'has-error' if flash[:emailError]}"
+              = f.password_field :password, :placeholder => "Password", class: "login-pass col-xs-10 col-xs-offset-1 #{ 'has-error' if flash[:passError]}", placeholer: "Password"
+              = f.submit "ENTER SpoiltRoyal", class: "login-submit col-xs-10 col-xs-offset-1 "
+            = link_to "Forgot Password", :forgotten_password
+
+
+
+
+

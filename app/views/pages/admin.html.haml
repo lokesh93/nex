@@ -1,0 +1,19 @@
+.admin-pannel.col-xs-8.col-xs-offset-2
+  .row.1.title-row
+    .col-xs-2.email.title
+      Email
+    .col-xs-8.content.title
+      Feedback
+    .col-xs-2.date.title
+      Date
+  - @feedbacks.each_with_index do |f,index|
+    .row{ class: "row-#{ index % 2}"}
+      .col-xs-2.emailrow
+        - if f.email != nil
+          = f.email
+        - else
+          = "N/A"
+      .col-xs-8
+        = f.content
+      .col-xs-2
+        = f.created_at.strftime("%m/%d/%Y")

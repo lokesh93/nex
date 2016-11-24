@@ -1,0 +1,17 @@
+$(document).ready(function(){
+  $('#loadmodal').hide();
+  var slide = vendor_slide_submited;
+  if (slide == 'slide-1') {
+    $('.notice-cont').empty()
+    $('.notice-cont').append("<%=j render partial: 'layouts/notice', locals: { notice: 'General Description Was Upated!' } %>")
+    var next = 'slide-2'
+  }else {
+    $('.notice-cont').empty()
+    $('.notice-cont').append("<%=j render partial: 'layouts/notice', locals: { notice: 'Buisness Description Was Upated!' } %>")
+    var next = 'slide-3'
+  }
+  $('.next-vendor-slide.next.'+slide).removeClass('active');
+  $('.vf-'+slide+'-toggle').removeClass('notsaved')
+  $('.vf-'+next+'-toggle').click()
+  $('.notice').show()
+})

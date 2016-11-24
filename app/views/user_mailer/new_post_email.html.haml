@@ -1,0 +1,17 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h1
+      New Post Detected: #{@post.title}
+    %p
+      #{@post.description}
+    - for vs in @post.post_subscriptions
+      %p
+        %strong Industry
+        = vs.subcategory.category.industry.name
+        %strong Category
+        = vs.subcategory.category.name
+        %strong Subcategory
+        = vs.subcategory.name

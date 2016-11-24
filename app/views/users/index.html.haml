@@ -1,0 +1,26 @@
+
+.admin-pannel.col-xs-8.col-xs-offset-2
+  .row.1.title-row
+    .col-xs-4
+      Name
+    .col-xs-2
+      Email
+    .col-xs-2 
+      Account Type
+    .col-xs-2
+      Account Id
+    .col-xs-2
+      Created At
+  - @users.each_with_index do |user,index|
+    .row{ class: "row-#{ index % 2}"}
+      .col-xs-4
+        = link_to user do 
+          = user.first_name + user.last_name
+      .col-xs-2
+        = user.email
+      .col-xs-2 
+        = user.account_type
+      .col-xs-2
+        = user.account_id
+      .col-xs-2
+        = user.created_at.strftime("%m/%d/%Y")

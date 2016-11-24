@@ -1,0 +1,21 @@
+- @attachment = Attachment.new
+- @post = post
+= form_for(@attachment, html: { multipart: true }) do |f|
+  = f.hidden_field :owner_id, value: post.id
+  = f.hidden_field :owner_type, value: "Post"
+  = f.hidden_field :multipe_files, value: true
+  = f.hidden_field :active, value: true
+  = f.file_field :image, multiple: false, name: 'attachment[image]', id: "image-input-#{post.id}", class: "hidden"
+  - if @post != nil
+    - @post.attachments.each do |attachment|
+      %label
+        .file-upload-container{  style: "background-image: url(#{attachment.image.url})"}
+          = link_to "X", attachment, method: :delete, confirm: 'Delete?', remote:true, class: "destroy-attachment"
+  %label{for: "image-input-#{post.id}"}
+    .file-upload-container.file-upload-btn
+      .progress-bar
+      %span#wrapper  Add A Picture To Your Post
+.col-xs-12.button
+  = form_for @post do |p|
+    = p.hidden_field :active, value: true
+    = p.submit 'Post', class: "next submit"

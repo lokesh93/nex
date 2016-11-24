@@ -1,0 +1,95 @@
+.modal.fade{:id => "edit_post", "aria-hidden" => "true", "aria-labelledby" => "edit_post", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content.post-modal
+      .modal-body.support-body.text-center
+        - if post == nil
+          - @post = Post.new
+        - else
+          - @psot = post
+        - @post.post_subscriptions.build
+        - @post.accepted_payment_methods.build
+        = nested_form_for @post, remote:true, :html => {  multipart: true } do |f|
+          .slide-1.edit
+            - if @post.errors.any?
+              #error_explanation
+                %h2= "#{pluralize(@post.errors.count, "error")} prohibited this post from being saved:"
+                %ul
+                  - @post.errors.full_messages.each do |msg|
+                    %li= msg
+            .h4.title
+              What do you need help with
+            .intro
+              Post your Needs. Cheeseburger and random things. I like candy and stuff.
+            .vendor-title.col-xs-12.no-h-padding
+              TITLE
+            = f.text_field :title, class: "col-xs-12 no-h-padding"
+            .vendor-title.col-xs-12.no-h-padding
+              DESCRIPTION
+            = f.text_area :description, class: "col-xs-12 no-h-padding"
+            -# .vendor-title.col-xs-6.no-h-padding
+            -#   MEDIA
+            .vendor-title.col-xs-12.no-h-padding
+              POST EXPIREY DATE
+            -# = file_field_tag "images[]", type: :file, multiple: true, class: "img-btn non-hidden"
+            -# .col-xs-5.no-h-padding.add-img
+            -#   Upload Image
+            = f.text_field :due_date, class: 'datepicker col-xs-5'
+
+            .vendor-title.col-xs-12.no-h-padding
+              Industry
+            = f.fields_for :post_subscriptions do |ps|
+              = render 'layouts/industry_selector', industry: ps, slide: "0"
+              = ps.link_to_remove "Remove Industry", class: "ri"
+            = f.link_to_add "Add More", :post_subscriptions, class: "ai"
+          .slide-2.edit
+            .h4.title
+              Almost there!
+            .vendor-title.col-xs-12.no-h-padding
+              PREFERED CONTACT METHOD:
+            .checkbox.checkbox-orange
+              = f.check_box :phone_contact
+              = f.label "Phone"
+            .checkbox.checkbox-orange
+              = f.check_box :email_contact
+              = f.label "Email"
+            .vendor-title.col-xs-12.no-h-padding
+              PREFERED PAYMENT METHODS:
+            .payment-methods.col-xs-12.no-h-padding
+              - if !(@post.payment_methods.empty?)
+                = f.fields_for :accepted_payment_methods do |apm|
+                  - if apm.object.payment_method_id != nil
+                    .checkbox.checkbox-orange
+                      = apm.check_box :accepted, :id => apm.object.payment_method.name
+                      = apm.label apm.object.payment_method.name, :for => apm.object.payment_method.name
+              - else
+                - PaymentMethod.all.each do |pm|
+                  = f.fields_for :accepted_payment_methods do |apm|
+                    .checkbox.checkbox-orange
+                      = apm.hidden_field :payment_method_id, :value => pm.id
+                      = apm.check_box :accepted 
+                      = apm.label pm.name
+            .vendor-titlec.ol-xs-12.no-h-padding
+              DESCRIBE YOUR NEED
+            .checkbox.checkbox-orange.needed
+              = f.check_box :delivery_needed
+              = f.label "I need the product delivered"
+            .checkbox.checkbox-orange.needed
+              = f.check_box :service_needed
+              = f.label "I need a service performed"
+            .checkbox.checkbox-orange.needed
+              = f.check_box :pick_up_needed
+              = f.label "I want to pick up the product"
+            .checkbox.checkbox-orange.needed
+              = f.check_box :other_needed
+              = f.label "Other", class: "other-label"
+              =f.text_field :other_needed_string,class: "other-input"
+          .slide-3.edit{style:"display:none"}
+            .vendor-title.col-xs-12.no-h-padding
+              Add Pictures To Your Post
+          .col-xs-12.buttons
+            
+            .edit-back-post{"target" => "nil"}
+              Back
+            = f.submit 'Post', class: "edit-submit submit", "target": ".edit.slide-2"
+            = link_to "Post", activate_post_post_path(@post), class: "active-submit", style: "display:none"
+

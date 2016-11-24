@@ -1,0 +1,24 @@
+= form_for @vendor_subscription do |f|
+  - if @vendor_subscription.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@vendor_subscription.errors.count, "error")} prohibited this vendor_subscription from being saved:"
+      %ul
+        - @vendor_subscription.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :vendor_id
+    = f.number_field :vendor_id
+  .field
+    = f.label :subcategory_id
+    = f.number_field :subcategory_id
+  .field
+    - is_new_industry = @vendor_subscription.nil? || @vendor_subscription.id.nil?
+    = select(:industry, :id, Industry.all.collect { |i| [i.name, i.id] }, {prompt: 'Industry'}, |
+      :selected => is_new_industry ? 0 : @vendor_subscription.subcategory.category.industry_id) |
+    -#
+    = select(:category, :id, Category.all.collect { |c| [c.name, c.id] }, {prompt: 'Category'}, |
+      :selected => is_new_industry ? 0 : @vendor_subscription.subcategory.category_id)  |
+    = f.select(:subcategory_id, Subcategory.all.collect { |s| [s.name, s.id] }, prompt: "Sub-Category")
+  .actions
+    = f.submit 'Save'

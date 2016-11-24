@@ -1,0 +1,36 @@
+%p#notice= notice
+
+%p
+  %b Address:
+  = @physical_location.address
+%p
+  %b Postal code:
+  = @physical_location.postal_code
+%p
+  %b Business phone:
+  = @physical_location.business_phone
+%p
+  %b Other phone:
+  = @physical_location.other_phone
+%p
+  %b Fax:
+  = @physical_location.fax
+%p
+  %b Business email:
+  = @physical_location.business_email
+%p
+  %b Business website:
+  = @physical_location.business_website
+%p
+  %b Sale location:
+  = @physical_location.sale_location
+%p
+  %b City:
+  = @physical_location.city_id
+%p
+  %b Vendor:
+  = @physical_location.vendor_id
+
+= link_to 'Edit', edit_physical_location_path(@physical_location)
+\|
+= link_to 'Back', physical_locations_path

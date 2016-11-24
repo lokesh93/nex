@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @watched_post.user_id
+%p
+  %b Post:
+  = @watched_post.post_id
+
+= link_to 'Edit', edit_watched_post_path(@watched_post)
+\|
+= link_to 'Back', watched_posts_path

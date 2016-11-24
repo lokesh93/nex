@@ -1,0 +1,129 @@
+.extra-bid-info.bid-slide-down{class: "bid-info-#{bid.id} #{"hidden "if hidden}",style: "background-color: #{"white" if backgroundWhite}"}
+	- if gradient
+		.gradient
+	- else
+		.gradient-space
+	.col-xs-12.title
+		Your Bid History
+	- grouped_index = 0
+	- @all_bids = bid.post.bids.where(:user_id => current_user.id).order("id DESC")
+	- @all_length = @all_bids.length
+	- @groups = @all_length/4.to_d
+	- @groups = @groups.ceil
+	- @all_bids.each_slice(4) do |bid_group|
+		- # started the index at 1
+		- grouped_index += 1
+		- if grouped_index != 1
+			- @hidden = "hidden"
+		- else 
+			- @hidden = ""
+
+		- if grouped_index == @groups
+			- @final = "final-bid-history"
+			.target-space{"target" => @target, class: "bid-group-set bid-#{bid.id}-set-#{grouped_index} #{@hidden}"}
+		- else
+			- @final = ""
+			- @target = "bid-"+bid.id.to_s+"-set-"+(grouped_index+1).to_s
+			.target-space.target-bid-history{"target" => @target, class: "bid-group-set bid-#{bid.id}-set-#{grouped_index} #{@hidden}"}
+				%i.fa.fa-angle-left
+		- if (@final != "") && (grouped_index != 1)
+			- @finalLine = "final-line"
+		- else
+			- @finalLine = ""
+		.bid-history-ui-container{class: "bid-group-set bid-#{bid.id}-set-#{grouped_index} #{@hidden} total-bid-#{bid_group.length} #{@final}"}
+			- index = 0;
+			.bids-length-space
+			- bid_group.reverse_each do |b|
+				- if index == 0
+					.circle
+						= number_to_currency(b.value)
+					- if @all_bids.length > 1
+						.line-container
+							-for i in 0..100
+								.line
+									.col-xs-12
+				- elsif index == (@all_bids.length - 1)
+					.circle
+						= number_to_currency(b.value)
+				- else
+					.circle
+						= number_to_currency(b.value)
+					- if index == (bid_group.length - 1)	
+						.line-container{class: "#{@finalLine}"}
+							-for i in 0..100
+								.line
+									.col-xs-12
+					- else
+						.line-container
+							-for i in 0..100
+								.line
+									.col-xs-12
+				- index += 1
+		- if grouped_index != 1
+			- @target = "bid-"+bid.id.to_s+"-set-"+(grouped_index-1).to_s
+			.target-space.target-bid-history{"target" => @target, class: "bid-group-set bid-#{bid.id}-set-#{grouped_index} #{@hidden} "}
+				%i.fa.fa-space.fa-angle-right
+		- else
+			.target-space{"target" => @target, class: "bid-group-set bid-#{bid.id}-set-#{grouped_index} #{@hidden}"}
+		.target-space{"target" => @target, class: "bid-group-set bid-#{bid.id}-set-#{grouped_index} #{@hidden}"}
+		.bid-history-date-container{class: "bid-group-set bid-#{bid.id}-set-#{grouped_index} #{@hidden} total-bid-#{bid_group.length} #{@final}"}
+			- index = 0;
+			.bids-length-space
+			- bid_group.reverse_each do |b|
+				- if index == 0
+					.date
+						= b.created_at.strftime("%m/%d/%Y") 
+					.space
+				- elsif index == (@all_bids.length - 1)
+					.date
+						= b.created_at.strftime("%m/%d/%Y") 
+				- else
+					.date
+						= b.created_at.strftime("%m/%d/%Y") 
+					.space
+				- index += 1
+		.target-space{"target" => @target, class: "bid-group-set bid-#{bid.id}-set-#{grouped_index} #{@hidden}"}
+
+	.col-xs-12.title
+		Current Bid Information
+	.info-container.col-xs-10.no-h-padding
+		.col-xs-4.padding-left-30.bid-amount
+			.attr
+				Bid Value
+			.value
+				= number_to_currency(bid.value)
+		.col-xs-4.no-h-padding.bid-date
+			.attr
+				Bid Date
+			.value
+				= bid.created_at.strftime("%B %d, %Y")
+		.col-xs-4.no-h-padding.industries
+			.attr
+				Industry
+			.value
+				- @last = bid.post.post_subscriptions.last
+				-bid.post.post_subscriptions.each do |ps|
+					= ps.subcategory.category.industry.name
+					- if @last != ps
+						= ", "
+		.col-xs-4.padding-left-30.status
+			.attr
+				Bid status
+			.value
+				- if bid.status == "bid-pending"
+					bidded, pending for response
+				- elsif bid.status == "accepted"
+					= "Bid Won"
+				- elsif bid.status == "Lost"
+					Lost
+				-else
+					= "Bid cancelled"
+		.col-xs-4.no-h-padding.bid-due
+			.attr
+				Bid Due
+			.value
+				= bid.post.due_date.to_date.strftime("%B %d, %Y")
+	.buttons.col-xs-2.no-h-padding
+
+		%a.modify-btn.open-bid-now{href:"#", "data-id": bid.post.id} Re-Bid
+		= link_to "Cancel Bid", bid_path(bid.id), method: :delete, data: {confirm: " Are you sure you want to cancel your bid"}, class: "cancel-btn"

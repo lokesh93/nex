@@ -1,0 +1,12 @@
+-# Same functionality as _location_selector.html partial
+-# But this needs to select multiple categories and multiple sub categories
+-# The are many ways to handle this but depending on which way we go, amount
+-# of work for backend and frontend will be different, need to talk about this
+- is_new_industry = industry.object.nil? || industry.object.id.nil?
+-# Industry
+
+= industry.select(:subcategory, options_for_select(Industry.all.collect { |c| [c.name, c.id] }, :selected => is_new_industry ? 0 : industry.object.subcategory.category.industry_id), {prompt: 'Industry'}) 
+-# Category
+= industry.select(:subcategory, options_for_select(Category.all.collect { |c| [c.name, c.id] }, :selected => is_new_industry ? 0 : industry.object.subcategory.category_id), {prompt: 'Category'})
+-# Subcategory
+= industry.select(:subcategory_id, Subcategory.all.collect { |s| [s.name, s.id] }, prompt: "Sub-Category")

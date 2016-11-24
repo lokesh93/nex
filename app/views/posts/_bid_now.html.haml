@@ -1,0 +1,11 @@
+- @bid = Bid.new
+.modal.fade{:id => "bid_now", "aria-hidden" => "true", "aria-labelledby" => "bid_now", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-body.support-body.text-center
+        .title.col-xs-12 
+          - if @bid.id == nil
+            %span Make A bid
+          - else 
+            %span Alter Your Bid
+        = render 'bids/form' 

@@ -1,0 +1,156 @@
+= render 'layouts/includeScroll'
+= content_for :head do
+  %title Hire Wedding Vendors to make your Dream Wedding a Reality
+  %meta{:content => "SpoiltRoyal", :name => "author"}/
+
+%section#landing_splash
+  - if current_user == nil
+    %nav.navbar.navbar-default
+      / Brand and toggle get grouped for better mobile display
+      .navbar-header
+        %button.navbar-toggle.collapsed{"data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+          %span.sr-only Toggle navigation
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %img#landing_logo.navbar-brand{:src => "img/logov1.png"}/
+      #bs-example-navbar-collapse-1.collapse.navbar-collapse
+        %ul.landing_nav_right.nav.navbar-nav
+          %li.login Login
+          %li#nav_join.join Join
+          -# %li#button_wrapper
+          -#   %button.cta.btn.btn-default.tooltip_btn{"data-placement" => "bottom", "data-toggle" => "tooltip", :title => "Coming soon!", :type => "button"} Post Your Needs
+        .clearfix
+  .splash.text-center
+    %h1 Make your Wedding Planning Convenient and Hassle Free
+    %h3 Stop Shopping Around. Get Competing offers from Hundreds of Quality Vendors!
+    %br
+    %br
+    %a{:href => "#valueprop"}
+      %button How it works
+  / splash
+%section#explore_nex
+  %img#content_image{:src => "img/crown.png"}/
+  %h2 The Royal Experience
+  %h4 Create a post here and you will have access to virtually every Wedding Vendor in the GTA.
+  %h3 One Post = Multiple Bids!
+  %button.cta.tooltip_btn{"data-placement" => "bottom", "data-toggle" => "tooltip", :title => "Coming soon!"} Post your needs
+%section#htw
+  %a{:name => "valueprop"}
+  %ul.value_prop
+    %h2 How SpoiltRoyal works
+    %li
+      .left.prop_img
+        %img{:src => "img/hiw_1.png"}/
+      .right.prop_text
+        %h4 Post Your Need
+        %p Reach out to vendors using text, images and videos to describe your wedding need."
+        %p
+        %blockquote “I’m looking for a quality photographer to capture our dream day. Here are a few styles of shots we like. Our wedding date is July 1, 2015.
+      .clearfix
+    %li
+      .right.prop_img
+        %img{:src => "img/hiw_2.png"}/
+      .left.prop_text
+        %h4 Receive Competing Bids
+        %p All wedding photographers who service the Toronto area receive automatic email notifications of your request. Whoever is interested will submit their competitive bids to you.
+        %blockquote
+          “We’d love to shoot your wedding, and as proof, here is our best offer!”
+          %blockquote
+      .clearfix
+    %li
+      .left.prop_img
+        %img{:src => "img/hiw_3.png", :style => "width: 90%"}/
+      .right.prop_text
+        %h4 Communicate With Vendors
+        %p Use SpoiltRoyal to communicate with vendors who bid for your business.
+        %blockquote
+          “Hey, I notice that you’ve received multiple bids. We’d love to book you in sooner, so I’m giving you another 10% off if you book before 12 tonight!”
+          %blockquote
+      .clearfix
+    %li
+      .right.prop_img
+        %img{:src => "img/hiw_4.png"}/
+      .left.prop_text
+        %h4 Hire your Dream Vendor!
+        %p Decide what the best deal means to you, based on the bid price, combined with the comprehensive vendor ratings and reviews.
+        %blockquote
+          “I booked my dream vendor in a fraction of the time, for a fraction of the price, hassle free!!”
+          %blockquote
+      .clearfix
+    .clearfix
+%section#contact_us
+  %h3
+    For more information, or to be a part of this disruptive product, please contact us at 416-548-7233 or
+    %a{:href => "mailto:info@NathansExchange.com"} info@NathansExchange.com
+%section#popular_service
+  %h2 Popular Services
+  %ul
+    %li.tooltip_btn{"data-placement" => "bottom", "data-toggle" => "tooltip", :title => "Coming soon!"}
+      %h3 Wedding Gowns & Bridesmaids Dresses
+      %img{:src => "img/1.png"}/
+    %li.tooltip_btn{"data-placement" => "bottom", "data-toggle" => "tooltip", :title => "Coming soon!"}
+      %h3 Photographers
+      %img{:src => "img/2.png"}/
+    %li.tooltip_btn{"data-placement" => "bottom", "data-toggle" => "tooltip", :title => "Coming soon!"}
+      %h3 Videographers
+      %img{:src => "img/3.png"}/
+    %li.tooltip_btn{"data-placement" => "bottom", "data-toggle" => "tooltip", :title => "Coming soon!"}
+      %h3 Cakes & Desserts
+      %img{:src => "img/4.png"}/
+    %li.tooltip_btn{"data-placement" => "bottom", "data-toggle" => "tooltip", :title => "Coming soon!"}
+      %h3 Music & Entertainment
+      %img{:src => "img/5.png"}/
+    %li.tooltip_btn{"data-placement" => "bottom", "data-toggle" => "tooltip", :title => "Coming soon!"}
+      %h3 Wedding Venues
+      %img{:src => "img/6.png"}/
+  .cta_wrapper
+    %button.secondary.cta.tooltip_btn{"data-placement" => "bottom", "data-toggle" => "tooltip", :title => "Coming soon!"} View More
+    %button.cta.tooltip_btn{"data-placement" => "bottom", "data-toggle" => "tooltip", :title => "Coming soon!"} Post your needs
+%section#quotes
+  #carousel-example-generic.carousel.slide{"data-ride" => "carousel"}
+    / Indicators
+    %ol.carousel-indicators
+      %li.active{"data-slide-to" => "0", "data-target" => "#carousel-example-generic"}
+      %li{"data-slide-to" => "1", "data-target" => "#carousel-example-generic"}
+    / Wrapper for slides
+    .carousel-inner{:role => "listbox"}
+      .item.active
+        %img{:alt => "...", :src => "img/1.png", :style => "width:100%"}/
+        .carousel-caption
+          "Wedding planning is supposed to be fun and exciting, but for us it was stressful and exhausting. I wish Nathan’s Exchange was available to us, it would have been so much easier! With a service like this, you have access to so many vendors you never knew of, and you can experience their demeanor first hand through their ratings, reviews, and communication."
+      .item
+        %img{:alt => "...", :src => "img/2.png", :style => "width:100%"}/
+        .carousel-caption
+          "When I started my wedding planning adventure, I was extremely excited! However, it didn't take too long before I started feeling overwhelmed and confused! When I heard about SpoiltRoyal, I was relieved that finally there was a website that could make vendors accessible to me based on my exact needs and wants!”
+      \...
+    / Controls
+    %a.left.carousel-control{"data-slide" => "prev", :href => "#carousel-example-generic", :role => "button"}
+      %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true"}
+      %span.sr-only Previous
+    %a.right.carousel-control{"data-slide" => "next", :href => "#carousel-example-generic", :role => "button"}
+      %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true"}
+      %span.sr-only Next
+= render 'login'
+= render 'join'
+- if params[:error] == "login"
+  :javascript
+    $(document).ready(function(){
+      $("#login").modal('show')
+    })
+- elsif params[:error] == "join"
+  :javascript
+    $(document).ready(function(){
+      $("#join").modal('show')
+    })
+  
+%footer
+  © 2014 Nathan’s Exchange Inc. All Rights Reserved.
+:javascript
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+  $('[data-toggle="popover"]').popover();
+  $('.carousel').carousel({
+    interval: 5000
+  })
+});

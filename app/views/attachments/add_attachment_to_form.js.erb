@@ -1,0 +1,4 @@
+$(document).ready(function(){
+  $("<%= @target %>").append("<%=j render partial: 'attachments/form', locals: { gallery: @gallery } %>")
+  console.log('test')
+})

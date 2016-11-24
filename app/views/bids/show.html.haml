@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Value:
+  = @bid.value
+%p
+  %b Status:
+  = @bid.status
+%p
+  %b Info:
+  = @bid.info
+
+= link_to 'Edit', edit_bid_path(@bid)
+\|
+= link_to 'Back', bids_path

@@ -1,0 +1,354 @@
+// Place all the styles related to the Posts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'variables';
+.comment-form{
+  overflow: auto;
+}
+
+#all_bid_info{
+  .modal-content{
+    background-color:transparent;
+    border:0;
+    position: relative;
+    left: 50%;
+    margin-left: -500px;
+  }
+  .text-align-left{
+    text-align: left;
+    border-bottom:1px solid #F5F5F5;
+  }
+  .status-bid-pending{
+    padding-left:15px;
+    padding-top:5px;
+    padding-bottom:5px;
+    background-color: #E7A19C;
+    color: white;
+  }
+}
+.custom.container{
+  margin-bottom: 50px;
+  .comments-cont{
+    padding: 50px;
+    background-color: white;
+    overflow: auto;
+    .more-or-less-comments{
+      float: right;
+      color: $blue;
+      font:italic;
+    }
+    .more-or-less-comments:hover{
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .rest-of-comments{
+      display: none;
+    }
+    .comments{
+      margin-top: 30px;
+      .comment{
+        float: left;
+        margin-bottom: 30px;
+        img{
+          float: left;
+          margin-right: 25px;
+        }
+        .info{
+          width: calc(100% - 90px);
+          float: left;
+          .name{
+            margin-bottom: 10px;
+            float: left;
+            .dark-text{
+              float: left;
+              color: $dark-text-color;
+              font-weight: bold;
+              font-size: 15px;
+            }
+            .green{
+              color: $green;
+            }
+            .date{
+              float: left;
+              margin-left: 10px;
+              font-size: 12px;
+              color: gray;
+            }
+          }
+        }
+      }
+    }
+    .title{
+      float: left;
+    }
+    .post-a-q{
+      float: right;
+      color: $blue;
+
+    }
+    .post-a-q:hover{
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+  .bids-cont{
+    background-color: white;
+    padding: 50px;
+    overflow: auto;
+    .more-or-less{
+      float: right;
+      color: $blue;
+      font:italic;
+    }
+    .more-or-less:hover{
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .rest-of-bids{
+      display: none;
+    }
+    .bid-table{
+      text-align:center;
+      .row-post{
+        padding-left:30px;
+        padding-right:30px;
+        padding-top:5px;
+        float: left;
+        .value{
+          float: left;
+        }
+        .heading{
+          margin-top: 20px;
+        }
+      }
+    }
+    .green{
+      color: $green;
+
+    }
+    .orange{
+      color: #DB716A;
+    }
+    .dark-text{
+      color: $dark-text-color;
+      font-size: 15px;
+      font-weight: bold;
+      }
+    .bid{
+      padding: 30px;
+      margin-top: 20px;
+      float: left;
+      width: 100%;
+      padding-bottom:0px;
+      
+      .bid-info{
+        img{
+          float: left;
+          margin-right: 10px;
+        }
+        .info{
+          width: calc(100% - 70px);
+          .description{
+            height: 30px;
+            line-height: 15px;
+          }
+          .name{
+            height: 30px;
+            font-weight: bold;
+            line-height: 35px;
+            
+            
+          }
+        }
+      }
+      .bid-date{
+        height: 60px;
+        .green{
+          height: 30px;
+          line-height: 30px;
+          color: $green;
+          font-size: 15px;
+          font-weight: bold;
+          text-align: left;
+        }
+        .date{
+          font-size: 11px;
+          font-weight: bold;
+          text-align: left;
+        }
+      }
+    }
+  }
+
+
+
+
+
+
+  .post-container{
+    background-color: white;
+    padding: 50px;
+    overflow: auto;
+    .profile-img{
+      float: left;
+
+
+    }
+    .media{
+      border: 2px solid #EAE6E1;
+      border-left: 0;
+      border-right: 0;
+      padding-top: 30px;
+      padding-bottom: 30px;
+      .content{
+        margin-top: 30px;
+        overflow-x: auto;
+        width: 868px;
+        white-space: nowrap;
+        height: 170px;
+        text-align: center;
+        img{
+          height: 150px;
+          width: 225px;
+          display: inline-block;
+        }
+      }
+    }
+    .contact-info{
+      border:1px solid #DB716A;
+      margin-top: 30px;
+      padding-top: 20px;
+      .contact-type{
+        width: 100%;
+        padding-left: 20px; 
+        float: left;
+        margin-bottom: 20px;
+        div{
+          float: left;
+        }
+        .title{
+          width: 180px;
+        }
+      }
+    }
+    .post-description{
+      float: left;
+      .text{
+        margin-top: 15px;
+        width: calc(100% - 130px);
+      }
+    }
+    .post-info-cont{
+      margin-top: 30px;
+      float: left;
+      width: calc(100% - 130px);
+
+      .title{
+        float: left;
+        width: 170px;
+        margin-right: 10px;
+      }
+    }
+    .post-date{
+      .due-date{
+        span{
+          margin-left: 10px;
+        }
+        .days-left{
+          color: $blue;
+        }
+      }
+    }
+    .tags{
+      .title{
+        height: 37px;
+        line-height: 37px;
+      }
+      .tag-cont{
+        float: left;
+        width: calc( 100% - 180px);
+        .tag{
+          float: left;
+          background-color: #fcedd6;
+          padding: 10px;
+          margin-left: 5px;
+        }
+      }
+    }
+    .post-button{
+      float: right;
+      *:hover{
+        cursor: pointer;
+      }
+      .submit-btn{ 
+        width: 130px;
+        height: 40px;
+        border-radius: 5px;
+        text-align: center;
+        line-height: 40px;
+        color: white;
+        font-weight: bold;
+        font-size: 15px;
+        margin-bottom: 5px;
+      }
+      div { 
+
+        height: 40px;
+        text-align: center;
+        line-height: 40px;
+        color: white;
+        font-weight: bold;
+        font-size: 15px;
+        margin-bottom: 5px;
+      }
+      .bid_now{
+        background-color: #DB716A;
+      }
+      .bid-history{
+        background-color: $blue;
+      }
+      .watch-bid{
+        border: 2px solid #DB716A;
+        background-color: white;
+        color: #DB716A;
+        margin-top: 0px;
+        border-radius:0px;
+      }
+    }
+    .post-general-info{
+      height: 60px;
+      float: left;
+      padding-left: 30px;
+      .title{
+        height: 30px;
+        line-height: 30px;
+        font-weight: bold;
+        font-size: 18px;
+        color: #DB716A;
+      }
+      .other-info{
+        height: 30px;
+        line-height: 30px;
+        .status{
+          height: 80%;
+          margin-top: 3px;
+          border-radius: 3px;
+          line-height: 24px;
+          font-weight: bold;
+          float: left;
+          padding-left: 10px;
+          padding-right: 10px;
+          margin-left: 15px;
+        }
+        .text{
+          float: left;
+        }
+        .ongoing{
+          border: 1px solid #DB716A;
+          color: #DB716A;
+
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,140 @@
+.managed_posts{
+  .bid-slide-down{
+    // min-height: 190px; 
+    overflow: auto;
+    border: 1px solid #E9E9E9;
+    .gradient{
+      height: 30px;
+      width:100%;
+      background: #f2f2f2;
+      background:-moz-linear-gradient(top, #f2f2f2, #f7f7f7);
+      background:-webkit-linear-gradient(top, #f2f2f2, #f7f7f7);
+      background:-o-linear-gradient(top, #f2f2f2, #f7f7f7);
+      background:-ms-linear-gradient(top, #f2f2f2, #f7f7f7);
+      background:linear-gradient(top, #f2f2f2, #f7f7f7);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f2f2f2', endColorstr='#f7f7f7',GradientType=0);
+    }
+    .title{
+      padding-left: 30px;
+      font-weight: bold;
+      color: #4C423C;
+      margin-top: -8px;
+      font-size: 15px;
+      padding-bottom: 30px;
+    }
+    .all-bids-table{
+      margin-bottom: 30px;
+      .bid-vendors{
+        width: 60%;
+        padding-left: 30px;
+        float: left;
+      }
+      .bid-amounts{
+        width: 40%;
+        padding-left: 0px;
+        float: right;
+      }
+      .bid-column{
+        .column-title{
+          color: #707070;
+          font-weight: bold;
+          margin-bottom: 10px;
+        }
+        .column-value{
+          margin-bottom: 8px;
+        }
+
+      }
+    }
+  }
+  .post{
+    width: 100%;
+    height: 120px;
+    background-color: white;
+    border-right: 1px solid #E9E9E9;
+    border-left: 1px solid #E9E9E9;
+    border-bottom: 1px solid #E9E9E9;
+    .watched-date{
+      .in-grey{
+        color: #9DA2A3;
+        font-weight: bold;
+        font-size: 15px;
+        margin-top: 43px;
+      }
+      .grey-date{
+        color:#BBBFC3;
+        font-size: 13px;
+
+      }
+      span{
+        white-space: nowrap;
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+    .exp-date{
+      line-height: 120px;
+      height:100;
+      padding-right:0px;
+    }
+    .stats{
+      line-height: 24px;
+      margin-top: 24px;
+    }
+    .links-container{
+      .bid-links{
+        position: relative;
+        margin-top: 20px;
+
+        a{
+          display: inline-block;
+          margin-bottom: 3px;
+        }
+        a:hover{
+          color: rgb(66, 139, 202);
+        }
+        .link{
+          color: rgb(66, 139, 202);
+          margin-bottom: 3px;
+        }
+        .link:hover{
+          cursor: pointer;
+          text-decoration: underline;
+        }
+
+      } 
+    }
+    .post-info{
+      padding-left: 15px;
+      .post-text{
+        height: 100%;
+        float: right;
+        width: calc(100% - 60px); 
+        padding-left: 20px;
+        .title{
+          color: #DB716A;
+          font-weight: bold;
+          margin-top: 42.5px;
+          margin-bottom:3px;
+
+        }
+        .info{
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+      .img-container{
+        height: 120px;
+        width: 60px;
+        padding: 0px;
+        float: left;
+        .bid-img{
+          position: relative;
+          top: 50%;
+          margin-top: -30px;
+        }
+      }
+    }
+  }
+}

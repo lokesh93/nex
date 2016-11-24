@@ -1,0 +1,16 @@
+= form_for @timed_task do |f|
+  - if @timed_task.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@timed_task.errors.count, "error")} prohibited this timed_task from being saved:"
+      %ul
+        - @timed_task.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :interval
+    = f.number_field :interval
+  .field
+    = f.label :measure_of_time
+    = f.text_field :measure_of_time
+  .actions
+    = f.submit 'Save'

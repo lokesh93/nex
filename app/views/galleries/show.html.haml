@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @gallery.name
+%p
+  %b Owner:
+  = @gallery.owner_id
+%p
+  %b Owner type:
+  = @gallery.owner_type
+
+= link_to 'Edit', edit_gallery_path(@gallery)
+\|
+= link_to 'Back', galleries_path
